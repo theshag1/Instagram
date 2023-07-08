@@ -7,16 +7,10 @@ class FollowSerializer(serializers.ModelSerializer):
         model = Follow
         fields = (
             'follow',
+            'followed_user'
         )
 
-    read_only_fields = ('id', 'followed_user')
+    read_only_fields = ('id',)
 
 
 
-"""
-{
-        "follow":3,
-        "followed_user":1
-}
-
-"""

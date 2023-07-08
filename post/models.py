@@ -14,10 +14,11 @@ class Post(models.Model):
 
     @property
     def like(self):
-        return self.like.count()
+        return self.like.like.count()
 
-    def __str__(self):
-        return self.id
+    @property
+    def comment(self):
+        return self.comment.count()
 
 
 class Comment(models.Model):

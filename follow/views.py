@@ -13,9 +13,4 @@ class FollowApi(APIView):
         serializer = FollowSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data.get('followed_user')
-        if not user:
-            serializer.validators.append(request.user.id)
-            print(serializer.data)
-            return Response(serializer.data)
-        else:
-            return Response('yomon')
+        return Response(serializer.data)
