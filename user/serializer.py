@@ -78,3 +78,11 @@ class UserUpdateView(serializers.ModelSerializer):
             'Gander',
         )
         read_only_fields = ('id',)
+
+
+class Follows(serializers.ModelSerializer):
+    class Meta:
+        model = Follow
+        fields = (
+            '__all__'
+        )

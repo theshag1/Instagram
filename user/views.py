@@ -1,11 +1,15 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.hashers import check_password
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from follow.models import Follow
 from user.models import User
-from user.serializer import UserSerilizer, LoginSerializer, LogoutSerializer, UserUpdateView, UserRegisterSerializer
+from user.serializer import UserSerilizer, LoginSerializer, LogoutSerializer, UserUpdateView, UserRegisterSerializer, \
+    Follows
 from django.utils.translation import gettext_lazy as _
 from rest_framework import generics
 
@@ -14,7 +18,7 @@ from rest_framework import generics
 
 class UserApiview(APIView):
     def get(self, request, *args, **kwargs):
-        queryset = User.objects.filter(id=request.user.id)
+        queryset = User.objects.filter(username=kwargs.get('username'))
         serializer = UserSerilizer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -30,12 +34,27 @@ class UserApiview(APIView):
         return Response(f'{user} deleted')
 
 
+class UserFollowedAPI(APIView):
+    def get(self, request, *args, **kwargs):
+        queryset = Follow.objects.filter(followed_user=request.user.id)
+        serializer = Follows(queryset, many=True)
+        return Response(serializer.data)
+
+
+class UserFollowersAPI(APIView):
+    def get(self, request, *args, **kwargs):
+        queryset = Follow.objects.filter(follow=request.user.id)
+        serializer = Follows(queryset, many=True)
+        return Response(serializer.data)
+
+
 class UserRegisterApi(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserRegisterSerializer
 
 
 class LoginApiView(APIView):
+    @swagger_auto_schema(request_body=LoginSerializer)
     def post(self, request, *args, **kwargs):
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -53,6 +72,7 @@ class LoginApiView(APIView):
 
 
 class LogoutApiView(APIView):
+    @swagger_auto_schema(request_body=LogoutSerializer)
     def post(self, request, *args, **kwargs):
         serializer = LogoutSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)

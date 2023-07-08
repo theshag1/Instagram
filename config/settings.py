@@ -14,7 +14,6 @@ from pathlib import Path
 import os
 import environ
 
-
 env = environ.Env(
     DBUG=(bool, False)
 )
@@ -41,11 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_yasg',
     'rest_framework',
     # local app
     'user',
     'follow',
-    'post'
+    'post',
+    'instaitems'
 ]
 
 MIDDLEWARE = [
@@ -131,3 +132,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'user.User'
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
