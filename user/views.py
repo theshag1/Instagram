@@ -1,5 +1,5 @@
 from django.contrib.auth import login, logout
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from follow.models import Follow
 from user.models import User
 from user.serializer import UserSerilizer, LoginSerializer, LogoutSerializer, UserUpdateView, UserRegisterSerializer, \
-    Follows
+    Follows, Password_Update
 from django.utils.translation import gettext_lazy as _
 from rest_framework import generics
 
@@ -112,3 +112,42 @@ class UserUpdateAPI(APIView):
 class UserUpdateDestoryAPI(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserUpdateView
+
+
+class User_Password_change(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = Password_Update(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        username = serializer.validated_data.get('username')
+        user = User.objects.filter(username=username).first()
+        old_password = serializer.validated_data.get('old_password')
+        new_password = serializer.validated_data.get('new_password')
+        validate = check_password(old_password, user.password)
+        if validate:
+            user.set_password(new_password)
+            user.save()
+            return Response(serializer.data)
+        else:
+            return Response('error')
+
+
+"""
+
+    def post(self, request, *args, **kwargs):
+        serializer = UserUpdatePasswordSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        username = serializer.validated_data.get('username')
+        user = User.objects.filter(username=username).first()
+        password = serializer.validated_data.get('password')
+        new_password = serializer.validated_data.get('new_password')
+        is_validate = check_password(password, user.password)
+        if is_validate:
+            user.set_password(new_password)
+            user.save()
+            return Response(serializer.data)
+        else:
+            return Response({"error": "Correct username or password"})
+
+
+
+"""

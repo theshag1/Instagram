@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'user',
     'follow',
     'post',
-    'instaitems'
+    'instaitems',
 ]
 
 MIDDLEWARE = [

@@ -86,3 +86,9 @@ class Follows(serializers.ModelSerializer):
         fields = (
             '__all__'
         )
+
+
+class Password_Update(serializers.Serializer):
+    username = serializers.CharField()
+    old_password = serializers.CharField()
+    new_password = serializers.CharField()
