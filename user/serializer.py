@@ -84,8 +84,10 @@ class Follows(serializers.ModelSerializer):
     class Meta:
         model = Follow
         fields = (
-            '__all__'
+            'follow',
+            'followed_user'
         )
+        read_only_fields = ('id',)
 
 
 class Password_Update(serializers.Serializer):

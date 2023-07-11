@@ -50,9 +50,10 @@ swagger_urls = [
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('user.urls')),
+    path('user/', include('user.urls')),
     path('follow/', include('follow.urls')),
-    path('post/', include('post.urls'))
+    path('post/', include('post.urls')),
+    path('search/', include('instaitems.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += swagger_urls

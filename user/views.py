@@ -13,8 +13,13 @@ from user.serializer import UserSerilizer, LoginSerializer, LogoutSerializer, Us
 from django.utils.translation import gettext_lazy as _
 from rest_framework import generics
 
-
 # Create your views here.
+
+""" 
+             user site api view
+#########################################################################################
+"""
+
 
 class UserApiview(APIView):
     def get(self, request, *args, **kwargs):
@@ -22,7 +27,7 @@ class UserApiview(APIView):
         serializer = UserSerilizer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def put(self, request, *args, **kwargs):
+    """def put(self, request, *args, **kwargs):
         serializer = UserUpdateView(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -31,7 +36,29 @@ class UserApiview(APIView):
     def delete(self, requset, *args, **kwargs):
         user = requset.user
         user.delete()
-        return Response(f'{user} deleted')
+        return Response(f'{user} deleted')"""
+
+
+class UserUpdateAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        queryset = User.objects.filter(username=kwargs.get('username'))
+        if kwargs.get('username') == request.user.username:
+            serializer = UserSerilizer(queryset, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(data={'error': 'Object not found'})
+
+    def put(self, request, *args, **kwargs):
+        serializer = UserUpdateView(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, *args, **kwargs):
+        if kwargs.get('username') == request.user.username:
+            user = request.user
+            user.delete()
+            return Response(f'{user} deleted')
+        return Response(data={'error': 'Object not found'})
 
 
 class UserFollowedAPI(APIView):
@@ -46,6 +73,12 @@ class UserFollowersAPI(APIView):
         queryset = Follow.objects.filter(follow=request.user.id)
         serializer = Follows(queryset, many=True)
         return Response(serializer.data)
+
+
+""" 
+             user requirement 
+#########################################################################################
+"""
 
 
 class UserRegisterApi(generics.CreateAPIView):
@@ -106,7 +139,7 @@ class UserUpdateAPI(APIView):
     def delete(self, request, *args, **kwargs):
         user = self.get_object(self.kwargs.get('pk'))
         user.delete()
-        return Response('user delete')
+        return Response(data={'detail': f'{user} deleted'})
 
 
 class UserUpdateDestoryAPI(generics.RetrieveUpdateAPIView):
@@ -129,25 +162,3 @@ class User_Password_change(APIView):
             return Response(serializer.data)
         else:
             return Response('error')
-
-
-"""
-
-    def post(self, request, *args, **kwargs):
-        serializer = UserUpdatePasswordSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        username = serializer.validated_data.get('username')
-        user = User.objects.filter(username=username).first()
-        password = serializer.validated_data.get('password')
-        new_password = serializer.validated_data.get('new_password')
-        is_validate = check_password(password, user.password)
-        if is_validate:
-            user.set_password(new_password)
-            user.save()
-            return Response(serializer.data)
-        else:
-            return Response({"error": "Correct username or password"})
-
-
-
-"""
