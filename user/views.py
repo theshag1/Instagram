@@ -1,19 +1,23 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.hashers import check_password, make_password
+from django.http import Http404
+from django.utils.translation import gettext_lazy as _
+
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import generics
 
+import user.models
 from follow.models import Follow
 from user.models import User
 from user.serializer import UserSerilizer, LoginSerializer, LogoutSerializer, UserUpdateView, UserRegisterSerializer, \
     Follows, Password_Update
-from django.utils.translation import gettext_lazy as _
-from rest_framework import generics
-
-# Create your views here.
+from post.models import Post, Comment, Like
+from post.serializer import PostSerializer, CommentSerializer, LikeSerializer
+from items.url import url
 
 """ 
              user site api view
@@ -21,62 +25,91 @@ from rest_framework import generics
 """
 
 
-class UserApiview(APIView):
+class UserAPIView(APIView):
     def get(self, request, *args, **kwargs):
         queryset = User.objects.filter(username=kwargs.get('username'))
         serializer = UserSerilizer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    """def put(self, request, *args, **kwargs):
-        serializer = UserUpdateView(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def delete(self, requset, *args, **kwargs):
-        user = requset.user
-        user.delete()
-        return Response(f'{user} deleted')"""
-
-
-class UserUpdateAPIView(APIView):
+class UserFollowedAPIView(APIView):
     def get(self, request, *args, **kwargs):
-        queryset = User.objects.filter(username=kwargs.get('username'))
-        if kwargs.get('username') == request.user.username:
-            serializer = UserSerilizer(queryset, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(data={'error': 'Object not found'})
-
-    def put(self, request, *args, **kwargs):
-        serializer = UserUpdateView(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def delete(self, request, *args, **kwargs):
-        if kwargs.get('username') == request.user.username:
-            user = request.user
-            user.delete()
-            return Response(f'{user} deleted')
-        return Response(data={'error': 'Object not found'})
-
-
-class UserFollowedAPI(APIView):
-    def get(self, request, *args, **kwargs):
-        queryset = Follow.objects.filter(followed_user=request.user.id)
+        queryset = Follow.objects.filter(followed_user__username=kwargs.get('username'))
         serializer = Follows(queryset, many=True)
-        return Response(serializer.data)
+        is_user = User.objects.filter(username=kwargs.get('username'))
+        if is_user:
+            return Response(serializer.data)
+        return Response(data={"error": f"{kwargs.get('username')} not found"})
 
 
-class UserFollowersAPI(APIView):
+class UserFollowersAPIView(APIView):
     def get(self, request, *args, **kwargs):
-        queryset = Follow.objects.filter(follow=request.user.id)
+        queryset = Follow.objects.filter(follow__username=kwargs.get('username'))
         serializer = Follows(queryset, many=True)
-        return Response(serializer.data)
+        is_user = User.objects.filter(username=kwargs.get('username'))
+        if is_user:
+            return Response(serializer.data)
+        return Response(data={"error": f"{kwargs.get('username')} not found"})
+
+
+class UserPostAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        queryset = Post.objects.filter(user__username=kwargs.get('username'))
+        serializer = PostSerializer(queryset, many=True)
+        is_user = User.objects.filter(username=kwargs.get('username'))
+        if is_user:
+            if queryset:
+                return Response(serializer.data, status=status.HTTP_200_OK)
+
+            return Response(data={"detail": f"{kwargs.get('username')} haven't post"})
+
+        return Response(data={"error": f"{kwargs.get('username')} not found"})
+
+
+class UserPostDetailAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        queryset = Post.objects.filter(id=kwargs.get('pk'))
+        serializer = PostSerializer(queryset, many=True)
+        is_user = User.objects.filter(
+            username=kwargs.get('username')
+        )
+        if is_user:
+            if queryset:
+                return Response(serializer.data)
+            return Response(data={"error": f"{kwargs.get('username')} haven't {kwargs.get('pk')} th post"})
+        return Response(data={"error": f"{kwargs.get('username')} can't find"})
+
+
+class UserPostCommentAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        queryset = Comment.objects.filter(post_id=kwargs.get('pk'))
+        serializer = CommentSerializer(queryset, many=True)
+        is_user = User.objects.filter(
+            username=kwargs.get('username')
+        )
+        if is_user:
+            if queryset:
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(data={"detail": "haven't comment yet "})
+        return Response(data={"error": f"{kwargs.get('username')} can't find"})
+
+
+class UserPostLikeAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        queryset = Like.objects.filter(post_id=kwargs.get('pk'))
+        serializer = LikeSerializer(queryset, many=True)
+        is_user = User.objects.filter(
+            username=kwargs.get('username')
+        )
+        if is_user:
+            if queryset:
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(data={"detail": "cannot find"})
+        return Response(data={"error": f"{kwargs.get('username')} can't find"})
 
 
 """ 
-             user requirement 
+                   user requirement 
 #########################################################################################
 """
 
@@ -100,8 +133,8 @@ class LoginApiView(APIView):
                 request, user=user
             )
             return Response(serializer.data)
-        else:
-            return Response(data={"error": "Password or Username correct"})
+
+        return Response(data={"error": "Password or Username correct"})
 
 
 class LogoutApiView(APIView):
@@ -117,7 +150,29 @@ class LogoutApiView(APIView):
             )
             return Response(data=_(f'Logout from user {user}'))
         else:
-            return Response()
+            return Response(status=status.HTTP_100_CONTINUE)
+
+
+class UserUpdateAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        queryset = User.objects.filter(username=kwargs.get('username'))
+        if kwargs.get('username') == request.user.username:
+            serializer = UserSerilizer(queryset, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(data={'error': 'Object not found'})
+
+    def put(self, request, *args, **kwargs):
+        serializer = UserUpdateView(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, *args, **kwargs):
+        if kwargs.get('username') == request.user.username:
+            user = request.user
+            user.delete()
+            return Response(f'{user} deleted')
+        return Response(data={'error': 'Object not found'})
 
 
 class UserUpdateAPI(APIView):

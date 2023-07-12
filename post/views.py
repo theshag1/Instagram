@@ -3,8 +3,8 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from post.models import Post, Like
-from .serializer import PostSerializer, LikeSerializer
+from post.models import Post, Like, Comment
+from .serializer import PostSerializer, LikeSerializer, CommentSerializer
 
 
 # Create your views here.
@@ -29,3 +29,10 @@ class LikeAPI(APIView):
         else:
             Like.objects.create(liked_user=request.user, post=post_id)
             return Response(data={'detail': 'Liked'})
+
+
+class PostDetail(APIView):
+    def get(self, request, *args, **kwargs):
+        queryset = Comment.objects.filter(post_id=kwargs.get('pk'))
+        serializer = CommentSerializer(queryset, many=True)
+        return Response(serializer.data)
