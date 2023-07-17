@@ -120,21 +120,24 @@ class UserRegisterApi(generics.CreateAPIView):
 
 
 class LoginApiView(APIView):
-    @swagger_auto_schema(request_body=LoginSerializer)
-    def post(self, request, *args, **kwargs):
-        serializer = LoginSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        username = serializer.data.get('username')
-        password = serializer.data.get('password')
-        user = User.objects.filter(username=username).first()
-        validate = check_password(password, user.password)
-        if validate:
-            login(
-                request, user=user
-            )
-            return Response(serializer.data)
 
-        return Response(data={"error": "Password or Username correct"})
+    def get(self, request, *args, **kwargs):
+        return Response(data={'detail': "Its working  !"})
+    # def post(self, request, *args, **kwargs):
+    #     serializer = LoginSerializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     username = serializer.data.get('username')
+    #     password = serializer.data.get('password')
+    #     user = User.objects.filter(username=username).first()
+    #     validate = check_password(password, user.password)
+    #     if validate:
+    #         login(
+    #             request, user=user
+    #         )
+    #         return Response(serializer.data)
+    #
+    #     return Response(data={"error": "Password or Username correct"})
+    #
 
 
 class LogoutApiView(APIView):
@@ -180,16 +183,21 @@ class UserUpdateAPI(APIView):
         return get_object_or_404(User, pk=pk)
 
     def get(self, request, *args, **kwargs):
-        pk = kwargs.get('pk')
-        serializer = UserUpdateView(self.get_object(pk))
-        return Response(serializer.data)
+        if kwargs.get('username') == request.user.username:
+            pk = kwargs.get('pk')
+            serializer = UserUpdateView(self.get_object(pk))
+            return Response(serializer.data)
+        return Response(data={"error": "You can't update another users"})
 
     def put(self, request, *args, **kwargs):
-        serializer = UserUpdateView(instance=self.get_object(pk=self.kwargs.get('pk')), data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        if kwargs.get('username') == request.user.username:
+
+            serializer = UserUpdateView(instance=self.get_object(pk=self.kwargs.get('pk')), data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(data={"error": f"You cannot update user : {kwargs.get('username')}"})
 
     def delete(self, request, *args, **kwargs):
         user = self.get_object(self.kwargs.get('pk'))
@@ -203,17 +211,20 @@ class UserUpdateDestoryAPI(generics.RetrieveUpdateAPIView):
 
 
 class User_Password_change(APIView):
+    @swagger_auto_schema(request_body=Password_Update)
     def post(self, request, *args, **kwargs):
-        serializer = Password_Update(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        username = serializer.validated_data.get('username')
-        user = User.objects.filter(username=username).first()
-        old_password = serializer.validated_data.get('old_password')
-        new_password = serializer.validated_data.get('new_password')
-        validate = check_password(old_password, user.password)
-        if validate:
-            user.set_password(new_password)
-            user.save()
-            return Response(serializer.data)
-        else:
-            return Response('error')
+        if kwargs.get('username') == request.user.username:
+            serializer = Password_Update(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            username = serializer.validated_data.get('username')
+            user = User.objects.filter(username=username).first()
+            old_password = serializer.validated_data.get('old_password')
+            new_password = serializer.validated_data.get('new_password')
+            validate = check_password(old_password, user.password)
+            if validate:
+                user.set_password(new_password)
+                user.save()
+                return Response(serializer.data)
+            else:
+                return Response('error')
+        return Response(data={'error': f"You can't change password {kwargs.get('username')}"})

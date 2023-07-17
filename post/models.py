@@ -6,7 +6,6 @@ from django.db import models
 class Post(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, related_name='post_user')
     image_or_vidio = models.FileField()
-    about = models.CharField()
 
     @property
     def like(self):

@@ -8,7 +8,6 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = (
             'image_or_vidio',
-            'about',
             'like',
             'comment',
 
@@ -23,7 +22,7 @@ class LikeSerializer(serializers.ModelSerializer):
             'post',
             'liked_user'
         )
-        read_only_fields = ('id', )
+        read_only_fields = ('id',)
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -35,4 +34,3 @@ class CommentSerializer(serializers.ModelSerializer):
             'comment_like'
         )
         read_only_fields = ('id',)
-
