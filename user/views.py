@@ -1,5 +1,8 @@
+import datetime
+
 from django.contrib.auth import login, logout
 from django.contrib.auth.hashers import check_password, make_password
+from django.core.mail import send_mail
 from django.http import Http404
 from django.utils.translation import gettext_lazy as _
 
@@ -11,6 +14,7 @@ from rest_framework.views import APIView
 from rest_framework import generics
 
 import user.models
+from config import settings
 from follow.models import Follow
 from user.models import User
 from user.serializer import UserSerilizer, LoginSerializer, LogoutSerializer, UserUpdateView, UserRegisterSerializer, \
@@ -18,6 +22,8 @@ from user.serializer import UserSerilizer, LoginSerializer, LogoutSerializer, Us
 from post.models import Post, Comment, Like
 from post.serializer import PostSerializer, CommentSerializer, LikeSerializer
 from items.url import url
+from Massages import (subject, messages
+                      )
 
 """ 
              user site api view
@@ -136,7 +142,6 @@ class LoginApiView(APIView):
         return Response(data={"error": "Password or Username correct"})
 
 
-
 class LogoutApiView(APIView):
     @swagger_auto_schema(request_body=LogoutSerializer)
     def post(self, request, *args, **kwargs):
@@ -218,9 +223,16 @@ class User_Password_change(APIView):
             old_password = serializer.validated_data.get('old_password')
             new_password = serializer.validated_data.get('new_password')
             validate = check_password(old_password, user.password)
+
             if validate:
                 user.set_password(new_password)
                 user.save()
+                send_mail(
+                    subject=subject.CHANGE_PASSWORD_WARNING,
+                    message=messages.change_message(user.username, datetime.datetime.now()),
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[user.email]
+                )
                 return Response(serializer.data)
             else:
                 return Response('error')
