@@ -120,24 +120,21 @@ class UserRegisterApi(generics.CreateAPIView):
 
 
 class LoginApiView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = LoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        username = serializer.data.get('username')
+        password = serializer.data.get('password')
+        user = User.objects.filter(username=username).first()
+        validate = check_password(password, user.password)
+        if validate:
+            login(
+                request, user=user
+            )
+            return Response(serializer.data)
 
-    def get(self, request, *args, **kwargs):
-        return Response(data={'detail': "Its working  !"})
-    # def post(self, request, *args, **kwargs):
-    #     serializer = LoginSerializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     username = serializer.data.get('username')
-    #     password = serializer.data.get('password')
-    #     user = User.objects.filter(username=username).first()
-    #     validate = check_password(password, user.password)
-    #     if validate:
-    #         login(
-    #             request, user=user
-    #         )
-    #         return Response(serializer.data)
-    #
-    #     return Response(data={"error": "Password or Username correct"})
-    #
+        return Response(data={"error": "Password or Username correct"})
+
 
 
 class LogoutApiView(APIView):

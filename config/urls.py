@@ -47,13 +47,13 @@ swagger_urls = [
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('user.urls')),
     path('follow/', include('follow.urls')),
     path('post/', include('post.urls')),
     path('search/', include('instaitems.urls')),
+    path('profile/', include('Account.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += swagger_urls
