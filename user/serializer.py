@@ -50,7 +50,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             return super().validate(attrs)
 
         def create(self, validated_data):
-            password = validated_data.pop('password',)
+            password = validated_data.pop('password', )
             user = User(**validated_data)
             user.set_password(password)
             user.save()
@@ -95,3 +95,7 @@ class Password_Update(serializers.Serializer):
     username = serializers.CharField()
     old_password = serializers.CharField()
     new_password = serializers.CharField()
+
+
+class Password_change(serializers.Serializer):
+    username = serializers.CharField()

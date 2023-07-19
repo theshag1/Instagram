@@ -2,6 +2,7 @@ import email
 
 from django.contrib.auth import login, logout
 from django.core.mail import send_mail
+from django.utils.crypto import get_random_string
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,9 +11,11 @@ from django.contrib.auth.hashers import check_password
 from config import settings
 # Create your views here.
 from user.models import User
+from .models import UpdateCode
 
-from user.serializer import LoginSerializer, UserSerilizer, LogoutSerializer, UserRegisterSerializer
+from user.serializer import LoginSerializer, UserSerilizer, LogoutSerializer, UserRegisterSerializer, Password_change
 from Massages import subject
+from Massages import messages
 import datetime
 
 
@@ -59,3 +62,31 @@ class LogoutUser(APIView):
 class UserRegisterApi(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserRegisterSerializer
+
+
+class SendCodeForUpdateAPIView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = Password_change(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        is_user = User.objects.filter(username=serializer.validated_data.get('username')).first()
+        if is_user:
+            code_varification = get_random_string(allowed_chars='123456789', length=6)
+            update_code = (
+                UpdateCode.objects.create(
+                    user_id=request.user.id,
+                    email=is_user.email,
+                    data_sent=datetime.datetime.now(),
+                    code=code_varification,
+                    is_check=False
+                )
+            )
+            update_code.save()
+            send_mail(
+                subject=subject.Forget_password,
+                message=messages.forgot_password(username=is_user, code=code_varification),
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[is_user.email]
+            )
+            return Response(data={"detail": f"Successful send email {is_user.email}"})
+        else:
+            return Response(data={"error": "Can't found this user"})

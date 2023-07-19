@@ -5,10 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14c26c76-919c-45f0-8321-1a02d1c2ef0b" name="Changes" comment="Email varification added">
-      <change afterPath="$PROJECT_DIR$/Massages/messages.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5a614c50-7822-42ed-a625-7817c1fddeee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5a614c50-7822-42ed-a625-7817c1fddeee.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Account/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Account/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Account/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Account/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Massages/messages.py" beforeDir="false" afterPath="$PROJECT_DIR$/Massages/messages.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Massages/subject.py" beforeDir="false" afterPath="$PROJECT_DIR$/Massages/subject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/serializer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +141,8 @@
       <workItem from="1689609277108" duration="1099000" />
       <workItem from="1689610401738" duration="839000" />
       <workItem from="1689693063762" duration="5218000" />
-      <workItem from="1689744908510" duration="1240000" />
+      <workItem from="1689744908510" duration="1257000" />
+      <workItem from="1689778323515" duration="5918000" />
     </task>
     <task id="LOCAL-00001" summary="push">
       <option name="closed" value="true" />
@@ -162,7 +168,15 @@
       <option name="project" value="LOCAL" />
       <updated>1689745401777</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Email varification added">
+      <option name="closed" value="true" />
+      <created>1689746451705</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1689746451705</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
