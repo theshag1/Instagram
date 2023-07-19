@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
 from rest_framework import generics
+from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth.hashers import check_password
@@ -13,7 +14,9 @@ from config import settings
 from user.models import User
 from .models import UpdateCode
 
-from user.serializer import LoginSerializer, UserSerilizer, LogoutSerializer, UserRegisterSerializer, Password_change
+from user.serializer import LoginSerializer, UserSerilizer, LogoutSerializer, UserRegisterSerializer, Password_change, \
+    Check_code
+
 from Massages import subject
 from Massages import messages
 import datetime
@@ -73,7 +76,6 @@ class SendCodeForUpdateAPIView(APIView):
             code_varification = get_random_string(allowed_chars='123456789', length=6)
             update_code = (
                 UpdateCode.objects.create(
-                    user_id=request.user.id,
                     email=is_user.email,
                     data_sent=datetime.datetime.now(),
                     code=code_varification,
@@ -90,3 +92,43 @@ class SendCodeForUpdateAPIView(APIView):
             return Response(data={"detail": f"Successful send email {is_user.email}"})
         else:
             return Response(data={"error": "Can't found this user"})
+
+
+# class CheckCodeSendAPIView(APIView):
+#     def post(self, request, *args, **kwargs):
+#         serializer = Check_code(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         email = serializer.validated_data.get('email')
+#         code = serializer.validated_data.get('code')
+#         user = User.objects.filter(email=email).first()
+#         is_true = (UpdateCode.objects.filter(code=code, email=email)).first()
+#         if is_true:
+#             UpdateCode.objects.update(is_check=True)
+#             login(
+#                 request,
+#                 user=user
+#             )
+#             return Response(data={"detail": f"Successful enter account {user.username}"})
+#         return Response(data={"error": "Not correct password or code"})
+#
+
+class CheckCodeSendAPIView(generics.CreateAPIView):
+    queryset = UpdateCode.objects.all()
+    serializer_class = Check_code
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data.get("email")
+        code = serializer.validated_data.get("code")
+        user = User.objects.filter(email=email).first()
+        update_code = self.get_queryset().filter(email=email, code=code, is_check=False).order_by('-data_sent').first()
+        if update_code and update_code.code != code:
+            raise ValidationError('Update code  invalid')
+
+        update_code.is_check = True
+        update_code.save(update_fields=["is_check"])
+        login(
+            request, user=user
+        )
+        return Response(data={"detail": f"Password change code is correct Successfuly enter user {user.username}"})

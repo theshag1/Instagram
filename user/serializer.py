@@ -99,3 +99,8 @@ class Password_Update(serializers.Serializer):
 
 class Password_change(serializers.Serializer):
     username = serializers.CharField()
+
+
+class Check_code(serializers.Serializer):
+    email = serializers.EmailField()
+    code = serializers.CharField()
