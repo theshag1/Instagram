@@ -104,3 +104,8 @@ class Password_change(serializers.Serializer):
 class Check_code(serializers.Serializer):
     email = serializers.EmailField()
     code = serializers.CharField()
+
+
+class UserForgotPasswordUpdate(serializers.Serializer):
+    new_password1 = serializers.CharField()
+    new_password2 = serializers.CharField()

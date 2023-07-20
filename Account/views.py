@@ -3,11 +3,11 @@ import email
 from django.contrib.auth import login, logout
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
 
 from config import settings
 # Create your views here.
@@ -15,11 +15,13 @@ from user.models import User
 from .models import UpdateCode
 
 from user.serializer import LoginSerializer, UserSerilizer, LogoutSerializer, UserRegisterSerializer, Password_change, \
-    Check_code
+    Check_code, UserForgotPasswordUpdate
 
 from Massages import subject
 from Massages import messages
 import datetime
+
+from rest_framework.permissions import IsAuthenticated
 
 
 class LoginUser(APIView):
@@ -89,7 +91,8 @@ class SendCodeForUpdateAPIView(APIView):
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[is_user.email]
             )
-            return Response(data={"detail": f"Successful send email {is_user.email}"})
+            return Response(status=status.HTTP_302_FOUND,
+                            headers={"Location": "http://127.0.0.1:8000/profile/checksendcode/"})
         else:
             return Response(data={"error": "Can't found this user"})
 
@@ -131,4 +134,22 @@ class CheckCodeSendAPIView(generics.CreateAPIView):
         login(
             request, user=user
         )
-        return Response(data={"detail": f"Password change code is correct Successfuly enter user {user.username}"})
+        return Response(status=status.HTTP_302_FOUND, headers={
+            "Location": "http://127.0.0.1:8000/profile/whaenuserdasiu32kiogbwqyfiwdfwuiefhwiuefhwodasoiewhfuvu23/"})
+
+
+class Step4ForUpdatePasscode(APIView):
+
+    def post(self, request, *args, **kwargs):
+        serializer = UserForgotPasswordUpdate(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new_password1 = serializer.validated_data.get('new_password1')
+        new_password2 = serializer.validated_data.get('new_password2')
+        if new_password1 != new_password2:
+            raise ValidationError('Not allowed password is incorrect')
+        user = User.objects.filter(id=request.user.id)
+
+        user.update(password=make_password(new_password1))
+        if user:
+            return Response(data={"detail": "Successful changed user"})
+        return Response('error')
