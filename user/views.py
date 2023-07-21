@@ -114,7 +114,16 @@ class UserPostLikeAPIView(APIView):
         return Response(data={"error": f"{kwargs.get('username')} can't find"})
 
 
-""" 
+class UsersLastMovementAPI(APIView):
+    def get(self, request, *args, **kwargs):
+        queryset = Follow.objects.filter(follow__username=kwargs.get('username'))
+        queryset2 = Post.objects.filter(user_id=request.user.id)
+        serializer = UserSerilizer(queryset, many=True)
+        serializer2 = PostSerializer(queryset2, many=True)
+        return Response({"user": serializer.data, "post": serializer2.data})
+
+
+"""
                    user requirement 
 #########################################################################################
 """

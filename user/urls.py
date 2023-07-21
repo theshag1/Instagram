@@ -1,13 +1,17 @@
 from django.urls import path
 from user.views import UserAPIView, LoginApiView, LogoutApiView, UserRegisterApi, \
     UserFollowedAPIView, UserFollowersAPIView, User_Password_change, UserUpdateAPIView, UserPostAPIView, \
-    UserPostDetailAPIView, UserPostCommentAPIView, UserPostLikeAPIView, UserUpdateAPI
+    UserPostDetailAPIView, UserPostCommentAPIView, UserPostLikeAPIView, UserUpdateAPI , UsersLastMovementAPI
 
 urlpatterns = [
     # requirment
+
+    path('<str:username>/lastmovament/', UsersLastMovementAPI.as_view(), name='user'),
+
     path('<str:username>/changepassword/', User_Password_change.as_view(), name='user'),
 
     path('<str:username>/', UserAPIView.as_view(), name='user'),
+
     path('<str:username>/post/', UserPostAPIView.as_view(), name='user_post'),
     path('<str:username>/post/<int:pk>/', UserPostDetailAPIView.as_view(), name='user_post'),
     path('<str:username>/post/<int:pk>/comment/', UserPostCommentAPIView.as_view(), name='user_post'),

@@ -1,5 +1,3 @@
-import email
-
 from django.contrib.auth import login, logout
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
@@ -96,24 +94,6 @@ class SendCodeForUpdateAPIView(APIView):
         else:
             return Response(data={"error": "Can't found this user"})
 
-
-# class CheckCodeSendAPIView(APIView):
-#     def post(self, request, *args, **kwargs):
-#         serializer = Check_code(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         email = serializer.validated_data.get('email')
-#         code = serializer.validated_data.get('code')
-#         user = User.objects.filter(email=email).first()
-#         is_true = (UpdateCode.objects.filter(code=code, email=email)).first()
-#         if is_true:
-#             UpdateCode.objects.update(is_check=True)
-#             login(
-#                 request,
-#                 user=user
-#             )
-#             return Response(data={"detail": f"Successful enter account {user.username}"})
-#         return Response(data={"error": "Not correct password or code"})
-#
 
 class CheckCodeSendAPIView(generics.CreateAPIView):
     queryset = UpdateCode.objects.all()
