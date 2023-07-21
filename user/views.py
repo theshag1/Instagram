@@ -1,11 +1,13 @@
 import datetime
 import os
+from random import random
 
 import qrcode
 from django.contrib.auth import login, logout
 from django.contrib.auth.hashers import check_password, make_password
 from django.core.mail import send_mail
 from django.http import Http404
+from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
 from drf_yasg.utils import swagger_auto_schema
@@ -20,11 +22,12 @@ from config import settings
 from follow.models import Follow
 from user.models import User
 from user.serializer import UserSerilizer, LoginSerializer, LogoutSerializer, UserUpdateView, UserRegisterSerializer, \
-    Follows, Password_Update
+    Follows, Password_Update, EmailVarificationCode, SendEmailVarification
 from post.models import Post, Comment, Like
 from post.serializer import PostSerializer, CommentSerializer, LikeSerializer
 from items.url import url
 from Massages import (subject, messages)
+from .models import VarificationCode
 
 """ 
              user site api view
@@ -156,6 +159,30 @@ class UserQrCOde(APIView):
         queryset = User.objects.all()
         serializer_class = UserRegisterSerializer
 
+
+class EmailVarification(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = SendEmailVarification(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data.get('email')
+        code = get_random_string(allowed_chars='1234567890', length=6)
+        is_user = User.objects.filter(email=user).first()
+        if is_user:
+            code = (VarificationCode.objects.create(email=is_user.email, is_varification=False, code=code,
+                                                    date=datetime.datetime.now()))
+            send_mail(
+                subject=subject.EMAIL_LOGIN_SUBJECT, message=messages.email_varification(is_user.username, code),
+                from_email=settings.EMAIL_HOST_USER, recipient_list=[is_user.email]
+
+            )
+            return Response(serializer.data)
+#
+#
+# class CheckEmailVarificationCode(APIView):
+#     def post(self, request, *args, **kwargs):
+#         serializer = EmailVarificationCode(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#
 
 """"
     class LoginApiView(APIView):

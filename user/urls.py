@@ -1,11 +1,13 @@
 from django.urls import path
 from user.views import UserAPIView, \
     UserFollowedAPIView, UserFollowersAPIView, User_Password_change, UserPostAPIView, \
-    UserPostDetailAPIView, UserPostCommentAPIView, UserPostLikeAPIView, UserUpdateAPI, UsersLastMovementAPI, UserQrCOde
+    UserPostDetailAPIView, UserPostCommentAPIView, UserPostLikeAPIView, UserUpdateAPI, UsersLastMovementAPI, UserQrCOde, \
+    EmailVarification
 
 urlpatterns = [
     # requirment
     path('qr/', UserQrCOde.as_view(), name='user_qr_code'),
+    path('email/varification/', EmailVarification.as_view(), name='user_qr_code'),
     path('<str:username>/lastmovament/', UsersLastMovementAPI.as_view(), name='user'),
     path('<str:username>/changepassword/', User_Password_change.as_view(), name='user'),
     path('<str:username>/', UserAPIView.as_view(), name='user'),

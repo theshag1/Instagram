@@ -5,6 +5,7 @@ from rest_framework.exceptions import ValidationError
 from follow.models import Follow
 from user.models import User
 from django.utils.translation import gettext_lazy as _
+from .models import VarificationCode
 
 
 class UserSerilizer(serializers.ModelSerializer):
@@ -109,3 +110,20 @@ class Check_code(serializers.Serializer):
 class UserForgotPasswordUpdate(serializers.Serializer):
     new_password1 = serializers.CharField()
     new_password2 = serializers.CharField()
+
+
+class EmailVarificationCode(serializers.ModelSerializer):
+    class Meta:
+        model = VarificationCode
+        field = (
+            'email',
+            'code',
+            'is_varification'
+            'date',
+
+        )
+        read_only_fields = ('id',)
+
+
+class SendEmailVarification(serializers.Serializer):
+    username = serializers.EmailField()

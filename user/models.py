@@ -32,7 +32,6 @@ class User(AbstractUser):
     Gander = models.CharField(choices=Gander_choices, max_length=1, null=True, blank=True)
     story = models.FileField()
 
-
     # showed information
 
     @property
@@ -46,3 +45,13 @@ class User(AbstractUser):
     @property
     def post(self):
         return self.post_user.count()
+
+
+class VarificationCode(models.Model):
+    email = models.EmailField()
+    code = models.CharField()
+    is_varification = models.BooleanField()
+    date = models.DateTimeField()
+
+
+
