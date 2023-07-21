@@ -1,5 +1,7 @@
 import datetime
+import os
 
+import qrcode
 from django.contrib.auth import login, logout
 from django.contrib.auth.hashers import check_password, make_password
 from django.core.mail import send_mail
@@ -22,8 +24,7 @@ from user.serializer import UserSerilizer, LoginSerializer, LogoutSerializer, Us
 from post.models import Post, Comment, Like
 from post.serializer import PostSerializer, CommentSerializer, LikeSerializer
 from items.url import url
-from Massages import (subject, messages
-                      )
+from Massages import (subject, messages)
 
 """ 
              user site api view
@@ -123,48 +124,67 @@ class UsersLastMovementAPI(APIView):
         return Response({"user": serializer.data, "post": serializer2.data})
 
 
-"""
-                   user requirement 
-#########################################################################################
-"""
+class UserQrCOde(APIView):
+    def get(self, request, *args, **kwargs):
+        data_to_scand = f"User : {request.user.username} , User photo {request.user.profile_photo}"
+        qr_code_file = f"{request.user.username}_qr_code.png"
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(data_to_scand)
+        qr.make(fit=True)
+
+        img = qr.make_image(fill_color="black", back_color="white")
+        img.save(qr_code_file)
+
+        return Response({"Detail": f"Qr code here {qr_code_file}"})
+
+    """
+                       user requirement 
+    #########################################################################################
+    """
+
+    class UserRegisterApi(generics.CreateAPIView):
+        queryset = User.objects.all()
+        serializer_class = UserRegisterSerializer
 
 
-class UserRegisterApi(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserRegisterSerializer
+""""
+    class LoginApiView(APIView):
+        def post(self, request, *args, **kwargs):
+            serializer = LoginSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            username = serializer.data.get('username')
+            password = serializer.data.get('password')
+            user = User.objects.filter(username=username).first()
+            validate = check_password(password, user.password)
+            if validate:
+                login(
+                    request, user=user
+                )
+                return Response(serializer.data)
 
-
-class LoginApiView(APIView):
-    def post(self, request, *args, **kwargs):
-        serializer = LoginSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        username = serializer.data.get('username')
-        password = serializer.data.get('password')
-        user = User.objects.filter(username=username).first()
-        validate = check_password(password, user.password)
-        if validate:
-            login(
-                request, user=user
-            )
-            return Response(serializer.data)
-
-        return Response(data={"error": "Password or Username correct"})
-
-
-class LogoutApiView(APIView):
-    @swagger_auto_schema(request_body=LogoutSerializer)
-    def post(self, request, *args, **kwargs):
-        serializer = LogoutSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = request.user
-        ask = serializer.validated_data.get('ask_validate')
-        if ask == 'Yes':
-            logout(
-                request
-            )
-            return Response(data=_(f'Logout from user {user}'))
-        else:
-            return Response(status=status.HTTP_100_CONTINUE)
+        
+            return Response(data={"error": "Password or Username correct"})
+            
+         class LogoutApiView(APIView):
+        @swagger_auto_schema(request_body=LogoutSerializer)
+        def post(self, request, *args, **kwargs):
+            serializer = LogoutSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            user = request.user
+            ask = serializer.validated_data.get('ask_validate')
+            if ask == 'Yes':
+                logout(
+                    request
+                )
+                return Response(data=_(f'Logout from user {user}'))
+            else:
+                return Response(status=status.HTTP_100_CONTINUE)
+                """
 
 
 class UserUpdateAPIView(APIView):

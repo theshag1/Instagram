@@ -23,6 +23,7 @@ class User(AbstractUser):
             "unique": _("A user with that username already exists."),
         },
     )
+    profile_photo = models.FileField()
     name = models.CharField(max_length=100, validators=[username_validator], null=True)
     Website = models.URLField(max_length=100, null=True)
     Bio = models.CharField(max_length=150, null=True)
