@@ -30,6 +30,8 @@ class User(AbstractUser):
     Phone_number = models.CharField(max_length=18, null=True, validators=[phone_validate])
     email = models.EmailField(_("email address"), blank=True)
     Gander = models.CharField(choices=Gander_choices, max_length=1, null=True, blank=True)
+    story = models.FileField()
+
 
     # showed information
 

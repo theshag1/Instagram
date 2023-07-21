@@ -32,6 +32,11 @@ from Massages import (subject, messages)
 """
 
 
+# class BasicAPI(APIView):
+#     def get(self, request, *args, **kwargs):
+#
+#
+
 class UserAPIView(APIView):
     def get(self, request, *args, **kwargs):
         queryset = User.objects.filter(username=kwargs.get('username'))

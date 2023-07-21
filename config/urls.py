@@ -49,7 +49,7 @@ swagger_urls = [
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user/', include('user.urls')),
+    path('', include('user.urls')),
     path('follow/', include('follow.urls')),
     path('post/', include('post.urls')),
     path('search/', include('instaitems.urls')),
