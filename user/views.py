@@ -12,11 +12,12 @@ from django.utils.translation import gettext_lazy as _
 
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
+from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
-
+from rest_framework.permissions import IsAuthenticated
 import user.models
 from config import settings
 from follow.models import Follow
@@ -155,34 +156,79 @@ class UserQrCOde(APIView):
     #########################################################################################
     """
 
-    class UserRegisterApi(generics.CreateAPIView):
-        queryset = User.objects.all()
-        serializer_class = UserRegisterSerializer
+
+class UserRegisterApi(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserRegisterSerializer
 
 
 class EmailVarification(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, *args, **kwargs):
         serializer = SendEmailVarification(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data.get('email')
+        email = serializer.validated_data.get('email')
         code = get_random_string(allowed_chars='1234567890', length=6)
-        is_user = User.objects.filter(email=user).first()
+        is_user = User.objects.filter(username=request.user.username).first()
         if is_user:
-            code = (VarificationCode.objects.create(email=is_user.email, is_varification=False, code=code,
-                                                    date=datetime.datetime.now()))
+            create_code = (VarificationCode.objects.create(email=is_user.email, is_varification=False, code=code,
+                                                           date=datetime.datetime.now()))
+            User.objects.update(email=email)
             send_mail(
                 subject=subject.EMAIL_LOGIN_SUBJECT, message=messages.email_varification(is_user.username, code),
                 from_email=settings.EMAIL_HOST_USER, recipient_list=[is_user.email]
 
             )
-            return Response(serializer.data)
-#
-#
-# class CheckEmailVarificationCode(APIView):
-#     def post(self, request, *args, **kwargs):
-#         serializer = EmailVarificationCode(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#
+            return Response(status=status.HTTP_302_FOUND,
+                            headers={"Location": "http://127.0.0.1:8000/email/varification/check/"})
+
+
+class CheckEmailVarificationCode(generics.CreateAPIView):
+    queryset = VarificationCode.objects.all()
+    serializer_class = EmailVarificationCode
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data.get('email')
+        code = serializer.validated_data.get('code')
+        varification = self.get_queryset().filter(email=email, code=code, is_varification=False).order_by('-date').first()
+        user = User.objects.filter(username=request.user.username)
+        if varification and varification.code != code:
+            raise ValidationError("Somthing error")
+        else:
+            varification.is_varification = True
+            user.email = email
+            return Response(data={"detail": "Succesfully Varification ! "})
+
+    """
+        def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data.get("email")
+        code = serializer.validated_data.get("code")
+        user = User.objects.filter(email=email).first()
+        update_code = self.get_queryset().filter(email=email, code=code, is_check=False).order_by('-data_sent').first()
+        if update_code and update_code.code != code:
+            raise ValidationError('Update code  invalid')
+
+    
+    """
+
+    # def post(self, request, *args, **kwargs):
+    #     serializer = EmailVarificationCode(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     code = serializer.validated_data.get('code')
+    #     email = serializer.validated_data.get('email')
+    #     is_validate = VarificationCode.objects.filter(email=email, code=code).order_by('-date')
+    #     user = User.objects.filter(username=request.user.username)
+    #     if is_validate:
+    #         VarificationCode.objects.update(is_varification=True)
+    #         user.update(email=email)
+    #         return Response(data={"detail": "Successfuly Varification !"})
+    #     return Response(data={"detail": "Ops somtihing is error"})
+
 
 """"
     class LoginApiView(APIView):

@@ -117,7 +117,27 @@ class CheckCodeSendAPIView(generics.CreateAPIView):
         return Response(status=status.HTTP_302_FOUND, headers={
             "Location": "http://127.0.0.1:8000/profile/whaenuserdasiu32kiogbwqyfiwdfwuiefhwiuefhwodasoiewhfuvu23/"})
 
+"""
+class CheckEmailVarificationCode(generics.CreateAPIView):
+    queryset = VarificationCode.objects.all()
+    serializer_class = VarificationCode
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data.get('email')
+        code = serializer.validated_data.get('code')
+        varification = self.get_queryset().VarificationCode.objects.filter(email=email, code=code).order_by('-data')
+        user = self.get_queryset().User.objects.filter(username=request.username)
+        if varification and varification != code:
+            raise ValidationError("Somthing error")
+        else:
+            varification.is_varification = True
+            user.email = email
+            return Response(data={"detail": "Succesfully Varification ! "})
+
+
+"""
 class Step4ForUpdatePasscode(APIView):
 
     def post(self, request, *args, **kwargs):

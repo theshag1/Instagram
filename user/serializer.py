@@ -115,15 +115,16 @@ class UserForgotPasswordUpdate(serializers.Serializer):
 class EmailVarificationCode(serializers.ModelSerializer):
     class Meta:
         model = VarificationCode
-        field = (
+        fields = (
             'email',
             'code',
-            'is_varification'
-            'date',
 
         )
-        read_only_fields = ('id',)
+        read_only_fields = ('id',
+                            'is_varification',
+                            'date',
+                            )
 
 
 class SendEmailVarification(serializers.Serializer):
-    username = serializers.EmailField()
+    email = serializers.EmailField()
