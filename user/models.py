@@ -54,4 +54,8 @@ class VarificationCode(models.Model):
     date = models.DateTimeField()
 
 
-
+class UserStory(models.Model):
+    user = models.ForeignKey('user.User', on_delete=models.CASCADE, related_name='user_story')
+    body = models.FileField()
+    datetime = models.DateTimeField(auto_now=True)
+    see_user = models.IntegerField(null=True, blank=True)

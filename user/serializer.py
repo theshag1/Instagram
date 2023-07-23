@@ -3,7 +3,8 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from follow.models import Follow
-from user.models import User
+from post.models import Post
+from user.models import User, UserStory
 from django.utils.translation import gettext_lazy as _
 from .models import VarificationCode
 
@@ -128,3 +129,17 @@ class EmailVarificationCode(serializers.ModelSerializer):
 
 class SendEmailVarification(serializers.Serializer):
     email = serializers.EmailField()
+
+
+class UserStorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserStory
+        fields = (
+            'body',
+
+        )
+        read_only_fields = (
+            'datetime',
+            'user',
+            'see_user',
+        )

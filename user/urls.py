@@ -1,6 +1,6 @@
 from django.urls import path
 from user.views import UserAPIView, \
-    UserFollowedAPIView, UserFollowersAPIView, User_Password_change, UserPostAPIView, \
+    UserFollowedAPIView, UserFollowersAPIView,  UserPostAPIView, \
     UserPostDetailAPIView, UserPostCommentAPIView, UserPostLikeAPIView, UserUpdateAPI, UsersLastMovementAPI, UserQrCOde, \
     EmailVarification, CheckEmailVarificationCode
 
@@ -10,7 +10,6 @@ urlpatterns = [
     path('email/varification/', EmailVarification.as_view(), name='user_email_varification_code'),
     path('email/varification/check/', CheckEmailVarificationCode.as_view(), name='user_email_varification_code'),
     path('<str:username>/lastmovament/', UsersLastMovementAPI.as_view(), name='user'),
-    path('<str:username>/changepassword/', User_Password_change.as_view(), name='user'),
     path('<str:username>/', UserAPIView.as_view(), name='user'),
     path('<str:username>/post/', UserPostAPIView.as_view(), name='user_post'),
     path('<str:username>/post/<int:pk>/', UserPostDetailAPIView.as_view(), name='user_post'),

@@ -1,6 +1,7 @@
 from django.contrib.auth import login, logout
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
@@ -8,18 +9,30 @@ from rest_framework.views import APIView
 from django.contrib.auth.hashers import check_password, make_password
 
 from config import settings
+from post.models import Post
+from post.serializer import PostSerializer
 # Create your views here.
-from user.models import User
+from user.models import User, UserStory
 from .models import UpdateCode
 
 from user.serializer import LoginSerializer, UserSerilizer, LogoutSerializer, UserRegisterSerializer, Password_change, \
-    Check_code, UserForgotPasswordUpdate
+    Check_code, UserForgotPasswordUpdate, Password_Update, UserStorySerializer
 
 from Massages import subject
 from Massages import messages
 import datetime
 
 from rest_framework.permissions import IsAuthenticated
+
+
+class BasicUserView(APIView):
+    def get(self, request, *args, **kwargs):
+        post_queryset = Post.objects.order_by('-id')
+        story_queryset = UserStory.objects.all()
+        post_serializer = PostSerializer(post_queryset, many=True)
+        story_serializer = UserStorySerializer(story_queryset, many=True)
+       # yeap
+        return Response({"posts": post_serializer.data, "stores": story_serializer.data})
 
 
 class LoginUser(APIView):
@@ -39,11 +52,6 @@ class LoginUser(APIView):
             return Response(data={"successful": f"Login successful from user {request.user.username}"})
         return Response(data={'Detail': 'Please input true username or password'})
 
-
-# subject = 'Verification code'
-#       email_user_name = email.split('@')[0]
-#       massage = f'Hi {email_user_name} 👋🏻, your email verifcation code is :{code}'
-#       send_mail(subject, massage, from_email=settings.EMAIL_HOST_USER, recipient_list=[email])
 
 class LogoutUser(APIView):
     def get(self, request, *args, **kwargs):
@@ -117,27 +125,7 @@ class CheckCodeSendAPIView(generics.CreateAPIView):
         return Response(status=status.HTTP_302_FOUND, headers={
             "Location": "http://127.0.0.1:8000/profile/whaenuserdasiu32kiogbwqyfiwdfwuiefhwiuefhwodasoiewhfuvu23/"})
 
-"""
-class CheckEmailVarificationCode(generics.CreateAPIView):
-    queryset = VarificationCode.objects.all()
-    serializer_class = VarificationCode
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        email = serializer.validated_data.get('email')
-        code = serializer.validated_data.get('code')
-        varification = self.get_queryset().VarificationCode.objects.filter(email=email, code=code).order_by('-data')
-        user = self.get_queryset().User.objects.filter(username=request.username)
-        if varification and varification != code:
-            raise ValidationError("Somthing error")
-        else:
-            varification.is_varification = True
-            user.email = email
-            return Response(data={"detail": "Succesfully Varification ! "})
-
-
-"""
 class Step4ForUpdatePasscode(APIView):
 
     def post(self, request, *args, **kwargs):
@@ -153,3 +141,30 @@ class Step4ForUpdatePasscode(APIView):
         if user:
             return Response(data={"detail": "Successful changed user"})
         return Response('error')
+
+
+class User_Password_change(APIView):
+    @swagger_auto_schema(request_body=Password_Update)
+    def post(self, request, *args, **kwargs):
+        if kwargs.get('username') == request.user.username:
+            serializer = Password_Update(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            username = serializer.validated_data.get('username')
+            user = User.objects.filter(username=username).first()
+            old_password = serializer.validated_data.get('old_password')
+            new_password = serializer.validated_data.get('new_password')
+            validate = check_password(old_password, user.password)
+
+            if validate:
+                user.set_password(new_password)
+                user.save()
+                send_mail(
+                    subject=subject.CHANGE_PASSWORD_WARNING,
+                    message=messages.change_message(user.username, datetime.datetime.now()),
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[user.email]
+                )
+                return Response(serializer.data)
+            else:
+                return Response('error')
+        return Response(data={'error': f"You can't change password {kwargs.get('username')}"})

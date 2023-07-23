@@ -36,11 +36,6 @@ from .models import VarificationCode
 """
 
 
-# class BasicAPI(APIView):
-#     def get(self, request, *args, **kwargs):
-#
-#
-
 class UserAPIView(APIView):
     def get(self, request, *args, **kwargs):
         queryset = User.objects.filter(username=kwargs.get('username'))
@@ -193,7 +188,8 @@ class CheckEmailVarificationCode(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data.get('email')
         code = serializer.validated_data.get('code')
-        varification = self.get_queryset().filter(email=email, code=code, is_varification=False).order_by('-date').first()
+        varification = self.get_queryset().filter(email=email, code=code, is_varification=False).order_by(
+            '-date').first()
         user = User.objects.filter(username=request.user.username)
         if varification and varification.code != code:
             raise ValidationError("Somthing error")
@@ -201,68 +197,6 @@ class CheckEmailVarificationCode(generics.CreateAPIView):
             varification.is_varification = True
             user.email = email
             return Response(data={"detail": "Succesfully Varification ! "})
-
-    """
-        def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        email = serializer.validated_data.get("email")
-        code = serializer.validated_data.get("code")
-        user = User.objects.filter(email=email).first()
-        update_code = self.get_queryset().filter(email=email, code=code, is_check=False).order_by('-data_sent').first()
-        if update_code and update_code.code != code:
-            raise ValidationError('Update code  invalid')
-
-    
-    """
-
-    # def post(self, request, *args, **kwargs):
-    #     serializer = EmailVarificationCode(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     code = serializer.validated_data.get('code')
-    #     email = serializer.validated_data.get('email')
-    #     is_validate = VarificationCode.objects.filter(email=email, code=code).order_by('-date')
-    #     user = User.objects.filter(username=request.user.username)
-    #     if is_validate:
-    #         VarificationCode.objects.update(is_varification=True)
-    #         user.update(email=email)
-    #         return Response(data={"detail": "Successfuly Varification !"})
-    #     return Response(data={"detail": "Ops somtihing is error"})
-
-
-""""
-    class LoginApiView(APIView):
-        def post(self, request, *args, **kwargs):
-            serializer = LoginSerializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            username = serializer.data.get('username')
-            password = serializer.data.get('password')
-            user = User.objects.filter(username=username).first()
-            validate = check_password(password, user.password)
-            if validate:
-                login(
-                    request, user=user
-                )
-                return Response(serializer.data)
-
-        
-            return Response(data={"error": "Password or Username correct"})
-            
-         class LogoutApiView(APIView):
-        @swagger_auto_schema(request_body=LogoutSerializer)
-        def post(self, request, *args, **kwargs):
-            serializer = LogoutSerializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            user = request.user
-            ask = serializer.validated_data.get('ask_validate')
-            if ask == 'Yes':
-                logout(
-                    request
-                )
-                return Response(data=_(f'Logout from user {user}'))
-            else:
-                return Response(status=status.HTTP_100_CONTINUE)
-                """
 
 
 class UserUpdateAPIView(APIView):
@@ -317,30 +251,3 @@ class UserUpdateAPI(APIView):
 class UserUpdateDestoryAPI(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserUpdateView
-
-
-class User_Password_change(APIView):
-    @swagger_auto_schema(request_body=Password_Update)
-    def post(self, request, *args, **kwargs):
-        if kwargs.get('username') == request.user.username:
-            serializer = Password_Update(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            username = serializer.validated_data.get('username')
-            user = User.objects.filter(username=username).first()
-            old_password = serializer.validated_data.get('old_password')
-            new_password = serializer.validated_data.get('new_password')
-            validate = check_password(old_password, user.password)
-
-            if validate:
-                user.set_password(new_password)
-                user.save()
-                send_mail(
-                    subject=subject.CHANGE_PASSWORD_WARNING,
-                    message=messages.change_message(user.username, datetime.datetime.now()),
-                    from_email=settings.EMAIL_HOST_USER,
-                    recipient_list=[user.email]
-                )
-                return Response(serializer.data)
-            else:
-                return Response('error')
-        return Response(data={'error': f"You can't change password {kwargs.get('username')}"})
