@@ -31,8 +31,18 @@ class BasicUserView(APIView):
         story_queryset = UserStory.objects.all()
         post_serializer = PostSerializer(post_queryset, many=True)
         story_serializer = UserStorySerializer(story_queryset, many=True)
-       # yeap
-        return Response({"posts": post_serializer.data, "stores": story_serializer.data})
+        # yeap
+        return Response({"posts": post_serializer.data, "stories": story_serializer.data})
+
+
+class StoryDetailAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        queryset = UserStory.objects.filter(user__username=kwargs.get('stories_name'))
+        serializer = UserStorySerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
 
 
 class LoginUser(APIView):

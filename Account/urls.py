@@ -1,10 +1,11 @@
 from django.urls import path
 
 from .views import LoginUser, UserRegisterApi, LogoutUser, SendCodeForUpdateAPIView, CheckCodeSendAPIView, \
-    Step4ForUpdatePasscode, User_Password_change, BasicUserView
+    Step4ForUpdatePasscode, User_Password_change, BasicUserView, StoryDetailAPIView
 
 urlpatterns = [
     path('', BasicUserView.as_view(), name='basic-view'),
+    path('stories/<str:stories_name>/', StoryDetailAPIView.as_view(), name='user'),
     path('login/', LoginUser.as_view(), name='login-user'),
     path('logout/', LogoutUser.as_view(), name='login-user'),
     path('<str:username>/changepassword/', User_Password_change.as_view(), name='user'),

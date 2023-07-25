@@ -129,6 +129,7 @@ class UsersLastMovementAPI(APIView):
 
 
 class UserQrCOde(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, *args, **kwargs):
         data_to_scand = f"User : {request.user.username} , User photo {request.user.profile_photo}"
         qr_code_file = f"{request.user.username}_qr_code.png"

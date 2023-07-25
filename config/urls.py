@@ -52,7 +52,7 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('follow/', include('follow.urls')),
     path('post/', include('post.urls')),
-    path('search/', include('instaitems.urls')),
+
     path('', include('Account.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.crypto import get_random_string
 
 
 # Create your models here.
@@ -6,7 +7,6 @@ from django.db import models
 class Post(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, related_name='post_user')
     image_or_vidio = models.FileField()
-
 
     @property
     def like(self):
@@ -34,3 +34,12 @@ class Like(models.Model):
 class LikeComment(models.Model):
     liked_user = models.ForeignKey('user.User', on_delete=models.CASCADE, related_name='like_comment_user')
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='like_comment_user')
+
+
+class ArchivedPost(models.Model):
+    user = models.ForeignKey('user.User', on_delete=models.CASCADE, related_name='Archived_user')
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name='archived_post'
+    )
