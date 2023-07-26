@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
-from post.models import Post, Like, Comment, ArchivedPost
-
+from post.models import Post, Like, Comment
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,21 +33,7 @@ class CommentSerializer(serializers.ModelSerializer):
             'body',
             'comment_like'
         )
-        read_only_fields = ('id',)
-
-
-class PostArchived(serializers.ModelSerializer):
-    class Meta:
-        model = ArchivedPost
-        fields = (
-            'post',
-        )
-
-        read_only_fields = (
-            'id',
-            'user',
-        )
 
 
 class PostArchive(serializers.Serializer):
-    post = serializers.CharField()
+    post = serializers.IntegerField()

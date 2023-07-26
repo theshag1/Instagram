@@ -64,8 +64,10 @@ class UserFollowersAPIView(APIView):
 
 
 class UserPostAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, *args, **kwargs):
-        queryset = Post.objects.filter(user__username=kwargs.get('username'))
+        queryset = Post.objects.filter(user__username=kwargs.get('username'), is_archived=False)
         serializer = PostSerializer(queryset, many=True)
         is_user = User.objects.filter(username=kwargs.get('username'))
         if is_user:
@@ -130,6 +132,7 @@ class UsersLastMovementAPI(APIView):
 
 class UserQrCOde(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request, *args, **kwargs):
         data_to_scand = f"User : {request.user.username} , User photo {request.user.profile_photo}"
         qr_code_file = f"{request.user.username}_qr_code.png"

@@ -7,6 +7,7 @@ from django.utils.crypto import get_random_string
 class Post(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, related_name='post_user')
     image_or_vidio = models.FileField()
+    is_archived = models.BooleanField(default=False)
 
     @property
     def like(self):
@@ -36,10 +37,4 @@ class LikeComment(models.Model):
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='like_comment_user')
 
 
-class ArchivedPost(models.Model):
-    user = models.ForeignKey('user.User', on_delete=models.CASCADE, related_name='Archived_user')
-    post = models.ForeignKey(
-        Post,
-        on_delete=models.CASCADE,
-        related_name='archived_post'
-    )
+

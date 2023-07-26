@@ -4,28 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14c26c76-919c-45f0-8321-1a02d1c2ef0b" name="Changes" comment="User varification email successfuly add">
+    <list default="true" id="14c26c76-919c-45f0-8321-1a02d1c2ef0b" name="Changes" comment="Archived post add">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/5a614c50-7822-42ed-a625-7817c1fddeee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5a614c50-7822-42ed-a625-7817c1fddeee.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Account/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Account/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instaitems/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/post/date.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instaitems/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/instaitems/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/instaitems/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/instaitems/migrations/0002_rename_media_archived.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/instaitems/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/instaitems/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/instaitems/serializer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/instaitems/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/instaitems/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/instaitems/views.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/post/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/post/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/post/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/post/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/post/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/post/serializer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/post/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/post/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/post/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
     </list>
@@ -48,6 +33,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/post/views.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/venv/lib/python3.11/site-packages/django/contrib/admin/__init__.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/venv/lib/python3.11/site-packages/django/contrib/admin/sites.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/venv/lib/python3.11/site-packages/rest_framework/permissions.py" root0="SKIP_INSPECTION" />
@@ -89,7 +75,7 @@
       <recent name="$PROJECT_DIR$/instaitems" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.date">
+  <component name="RunManager" selected="Python.views (1)">
     <configuration name="date" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Instagram" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -134,6 +120,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="views (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Instagram" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/post" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/post/views.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Instagram" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -158,6 +166,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.views (1)" />
         <item itemvalue="Python.date" />
         <item itemvalue="Python.subject" />
         <item itemvalue="Python.views" />
@@ -196,7 +205,8 @@
       <workItem from="1690131730008" duration="5614000" />
       <workItem from="1690202693778" duration="266000" />
       <workItem from="1690203000001" duration="2979000" />
-      <workItem from="1690300043228" duration="8365000" />
+      <workItem from="1690300043228" duration="8592000" />
+      <workItem from="1690373233913" duration="5171000" />
     </task>
     <task id="LOCAL-00001" summary="push">
       <option name="closed" value="true" />
@@ -318,7 +328,15 @@
       <option name="project" value="LOCAL" />
       <updated>1690139733456</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Archived post add">
+      <option name="closed" value="true" />
+      <created>1690310288781</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1690310288781</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -345,11 +363,13 @@
     <MESSAGE value="Story added just 10/100" />
     <MESSAGE value="User Emaill Varification added" />
     <MESSAGE value="User varification email successfuly add" />
-    <option name="LAST_COMMIT_MESSAGE" value="User varification email successfuly add" />
+    <MESSAGE value="Archived post add" />
+    <option name="LAST_COMMIT_MESSAGE" value="Archived post add" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Instagram$subject.coverage" NAME="subject Coverage Results" MODIFIED="1689609042158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Massages" />
     <SUITE FILE_PATH="coverage/Instagram$views.coverage" NAME="views Coverage Results" MODIFIED="1689609015800" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Account" />
     <SUITE FILE_PATH="coverage/Instagram$date.coverage" NAME="date Coverage Results" MODIFIED="1690309321257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/post" />
+    <SUITE FILE_PATH="coverage/Instagram$views__1_.coverage" NAME="views (1) Coverage Results" MODIFIED="1690375279705" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/post" />
   </component>
 </project>

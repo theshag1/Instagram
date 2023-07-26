@@ -4,18 +4,17 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from post.models import Post, Like, Comment, ArchivedPost
+from post.models import Post, Like, Comment
 from user.models import User
-from .serializer import PostSerializer, LikeSerializer, CommentSerializer, PostArchived, PostArchive
+from .serializer import PostSerializer, LikeSerializer, CommentSerializer, PostArchive
 
 
 # Create your views here.
 
 class PostAPi(APIView):
     def get(self, request, *args, **kwargs):
-        queryset = Post.objects.filter(user_id=request.user.id)
+        queryset = Post.objects.filter(user_id=request.user.id, is_archived=False)
         serializer = PostSerializer(queryset, many=True)
-
         return Response(serializer.data)
 
 
@@ -36,11 +35,8 @@ class LikeAPI(APIView):
 
 class PostDetail(APIView):
     def get(self, request, *args, **kwargs):
-        queryset = Post.objects.filter(id=kwargs.get('pk'))
+        queryset = Post.objects.filter(id=kwargs.get('pk'), is_archived=False)
         serializer = PostSerializer(queryset, many=True)
-        check_in = ArchivedPost.objects.filter(post_id=kwargs.get('pk'))
-        if check_in:
-            return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
@@ -48,18 +44,15 @@ class PostDetail(APIView):
         serializer.is_valid(raise_exception=True)
         is_post = Post.objects.get(id=serializer.validated_data.get('post'))
         if is_post:
-            ArchivedPost.objects.create(
-                user_id=request.user.id,
-                post=is_post
-            )
+            Post.objects.filter(id=serializer.validated_data.get('post')).update(is_archived=True)
             return Response(data={'detail': 'Succesfuly add Archived'})
         return Response(data={"error": "error ! "})
 
 
 class ArchivedPostAPIVew(APIView):
     def get(self, request, *args, **kwargs):
-        queryset = ArchivedPost.objects.filter(user_id=request.user.id)
-        serializer = PostArchived(
+        queryset = Post.objects.filter(user_id=request.user.id, is_archived=True)
+        serializer = PostSerializer(
             queryset, many=True
         )
         return Response(serializer.data)
