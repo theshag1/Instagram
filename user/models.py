@@ -54,6 +54,12 @@ class VarificationCode(models.Model):
     date = models.DateTimeField()
 
 
+class SavedPost(models.Model):
+    post = models.ForeignKey('post.Post', on_delete=models.CASCADE, related_name='Saved_post')
+    user = models.CharField()
+
+
+
 class UserStory(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, related_name='user_story')
     body = models.FileField()

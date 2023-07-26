@@ -21,14 +21,13 @@ from rest_framework.permissions import IsAuthenticated
 import user.models
 from config import settings
 from follow.models import Follow
-from user.models import User
+from user.models import User, VarificationCode, SavedPost
 from user.serializer import UserSerilizer, LoginSerializer, LogoutSerializer, UserUpdateView, UserRegisterSerializer, \
-    Follows, Password_Update, EmailVarificationCode, SendEmailVarification
+    Follows, Password_Update, EmailVarificationCode, SendEmailVarification, SavePost
 from post.models import Post, Comment, Like
 from post.serializer import PostSerializer, CommentSerializer, LikeSerializer
 from items.url import url
 from Massages import (subject, messages)
-from .models import VarificationCode
 
 """ 
              user site api view
@@ -149,6 +148,27 @@ class UserQrCOde(APIView):
         img.save(qr_code_file)
 
         return Response({"Detail": f"Qr code here {qr_code_file}"})
+
+
+class SavedPostAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        quryset = SavedPost.objects.filter(user=request.user.id)
+        serializer = SavePost(quryset, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        serializer = SavePost(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        post = serializer.validated_data.get('post')
+        user_data = serializer.validated_data.get('user')
+        is_user = User.objects.filter(id=user_data, username=request.user.username)
+        if is_user:
+            SavedPost.objects.create(
+                post=post,
+                user=request.user.id
+            )
+            return Response(data={"detail": "Successfuly saved "})
+        return Response(data={"error": "User can't  found"})
 
     """
                        user requirement 
