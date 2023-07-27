@@ -4,63 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14c26c76-919c-45f0-8321-1a02d1c2ef0b" name="Changes" comment="Archived API views add">
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0002_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0003_updatecode_code_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0004_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0005_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0006_remove_updatecode_user_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0007_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0008_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0009_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0010_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0011_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0012_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0013_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0014_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0015_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0016_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0017_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0018_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0019_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0020_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0021_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0022_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0023_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0024_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0025_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/Screenshot_from_2023-07-19_21-45-53.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/Screenshot_from_2023-07-19_21-46-11.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/Screenshot_from_2023-07-22_14-13-56.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/Screenshot_from_2023-07-22_15-08-28.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/Screenshot_from_2023-07-22_15-09-40.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/Screenshot_from_2023-07-22_15-11-49.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/Screenshot_from_2023-07-22_15-27-35.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/pexels-adrien-olichon-2387793.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/pexels-adrien-olichon-2387793_4o1Ci0v.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/pexels-adrien-olichon-2387793_l2dP37G.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/photo_2023-07-21_13-01-06.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/photo_2023-07-21_13-01-06_06g3RC6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/photo_2023-07-21_13-01-06_0j31yuj.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post/migrations/0005_post_made_number.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post/migrations/0006_remove_post_made_number.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post/migrations/0007_archivedpost.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post/migrations/0008_archivedpost_user.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post/migrations/0009_post_is_archived.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post/migrations/0010_delete_archivedpost.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/migrations/0002_user_profile_photo.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/migrations/0003_user_story.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/migrations/0004_varificationcode.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/migrations/0005_userstory.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/migrations/0006_alter_userstory_see_user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5a614c50-7822-42ed-a625-7817c1fddeee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5a614c50-7822-42ed-a625-7817c1fddeee.xml" afterDir="false" />
+    <list default="true" id="14c26c76-919c-45f0-8321-1a02d1c2ef0b" name="Changes" comment="Saved Post Successfuly added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/serializer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,7 +199,7 @@
       <workItem from="1690202693778" duration="266000" />
       <workItem from="1690203000001" duration="2979000" />
       <workItem from="1690300043228" duration="8592000" />
-      <workItem from="1690373233913" duration="8787000" />
+      <workItem from="1690373233913" duration="9181000" />
     </task>
     <task id="LOCAL-00001" summary="push">
       <option name="closed" value="true" />
@@ -392,7 +337,15 @@
       <option name="project" value="LOCAL" />
       <updated>1690380282891</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Saved Post Successfuly added">
+      <option name="closed" value="true" />
+      <created>1690383930557</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1690383930557</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,7 +374,8 @@
     <MESSAGE value="User varification email successfuly add" />
     <MESSAGE value="Archived post add" />
     <MESSAGE value="Archived API views add" />
-    <option name="LAST_COMMIT_MESSAGE" value="Archived API views add" />
+    <MESSAGE value="Saved Post Successfuly added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Saved Post Successfuly added" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Instagram$subject.coverage" NAME="subject Coverage Results" MODIFIED="1689609042158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Massages" />

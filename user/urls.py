@@ -6,7 +6,7 @@ from user.views import UserAPIView, \
 
 urlpatterns = [
     # requirment
-    path('saved/', SavedPostAPIView.as_view(), name='user_qr_code'),
+    path('<str:username>/saved/', SavedPostAPIView.as_view(), name='user_qr_code'),
     path('qr/', UserQrCOde.as_view(), name='user_qr_code'),
     path('email/varification/', EmailVarification.as_view(), name='user_email_varification_code'),
     path('email/varification/check/', CheckEmailVarificationCode.as_view(), name='user_email_varification_code'),

@@ -152,7 +152,7 @@ class UserQrCOde(APIView):
 
 class SavedPostAPIView(APIView):
     def get(self, request, *args, **kwargs):
-        quryset = SavedPost.objects.filter(user=request.user.id)
+        quryset = SavedPost.objects.filter(user=kwargs.get('username'))
         serializer = SavePost(quryset, many=True)
         return Response(serializer.data)
 
