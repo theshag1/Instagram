@@ -61,8 +61,11 @@ class SavedPost(models.Model):
 
 class UserStory(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, related_name='user_story')
-    image = models.ImageField(blank=True, null=True)
-    video = models.FileField(blank=True, null=True)
+    image = models.ImageField(null=True, blank=True )
+    video = models.FileField(null=True, blank=True)
     create_time = models.DateTimeField(auto_now=True)
     see_user = models.IntegerField(null=True, blank=True)
     expiration_time = models.DateTimeField(db_index=True)
+
+
+

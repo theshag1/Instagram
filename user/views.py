@@ -1,16 +1,10 @@
 import datetime
-import os
-from random import random
 
 import qrcode
-from django.contrib.auth import login, logout
-from django.contrib.auth.hashers import check_password, make_password
-from django.core.mail import send_mail
-from django.http import Http404
-from django.utils.crypto import get_random_string
-from django.utils.translation import gettext_lazy as _
 
-from drf_yasg.utils import swagger_auto_schema
+from django.core.mail import send_mail
+from django.utils.crypto import get_random_string
+
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
@@ -18,15 +12,16 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-import user.models
+
+from Archived.models import UserStoryArchived
 from config import settings
 from follow.models import Follow
-from user.models import User, VarificationCode, SavedPost
-from user.serializer import UserSerilizer, LoginSerializer, LogoutSerializer, UserUpdateView, UserRegisterSerializer, \
-    Follows, Password_Update, EmailVarificationCode, SendEmailVarification, SavePost
+from user.models import User, VarificationCode, SavedPost, UserStory
+from user.serializer import UserSerilizer, UserUpdateView, UserRegisterSerializer, \
+    Follows, Password_Update, EmailVarificationCode, SendEmailVarification, SavePost, UserStorySerializer
 from post.models import Post, Comment, Like
 from post.serializer import PostSerializer, CommentSerializer, LikeSerializer
-from items.url import url
+
 from Massages import (subject, messages)
 
 """ 
@@ -124,9 +119,11 @@ class UsersLastMovementAPI(APIView):
     def get(self, request, *args, **kwargs):
         queryset = Follow.objects.filter(follow__username=kwargs.get('username'))
         queryset2 = Post.objects.filter(user_id=request.user.id)
+        queryset3 = Like.objects.filter(post__user__user=request.user)
         serializer = UserSerilizer(queryset, many=True)
         serializer2 = PostSerializer(queryset2, many=True)
-        return Response({"user": serializer.data, "post": serializer2.data})
+        serilzer3 = LikeSerializer(queryset3, many=True)
+        return Response({"user": serializer.data, "post": serializer2.data, "like": serilzer3.data})
 
 
 class UserQrCOde(APIView):
@@ -148,6 +145,54 @@ class UserQrCOde(APIView):
         img.save(qr_code_file)
 
         return Response({"Detail": f"Qr code here {qr_code_file}"})
+
+
+class UserStoryAPIview(APIView):
+
+    def get(self, request, *args, **kwargs):
+        queryset = UserStory.objects.filter(user__username=kwargs.get('username'))
+        serializer_class = UserStorySerializer(queryset, many=True)
+        return Response(serializer_class.data)
+
+
+class UserStoryCreatedAPI(generics.CreateAPIView):
+    queryset = UserStory.objects.all()
+    serializer_class = UserStorySerializer
+
+    def create(self, request, *args, **kwargs):
+        serilzier = self.get_serializer(data=request.data)
+        serilzier.is_valid(raise_exception=True)
+        user = serilzier.validated_data.get('user')
+        image = serilzier.validated_data.get('image')
+        video = serilzier.validated_data.get('video')
+        is_user = User.objects.filter(id=request.user.id)
+        if is_user:
+            UserStoryArchived.objects.create(
+                user=user,
+                image=image,
+                video=video,
+            )
+            return Response(data={"detail": "Successfuly created! "})
+
+
+class CheckEmailVarificationCode(generics.CreateAPIView):
+    queryset = VarificationCode.objects.all()
+    serializer_class = EmailVarificationCode
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data.get('email')
+        code = serializer.validated_data.get('code')
+        varification = self.get_queryset().filter(email=email, code=code, is_varification=False).order_by(
+            '-date').first()
+        user = User.objects.filter(username=request.user.username)
+        if varification and varification.code != code:
+            raise ValidationError("Somthing error")
+        else:
+            varification.is_varification = True
+            user.email = email
+            return Response(data={"detail": "Succesfully Varification ! "})
 
 
 class SavedPostAPIView(APIView):

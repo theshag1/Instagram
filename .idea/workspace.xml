@@ -4,59 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14c26c76-919c-45f0-8321-1a02d1c2ef0b" name="Changes" comment="Saved Post Successfuly added">
-      <change afterPath="$PROJECT_DIR$/user/management/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/management/commands/remove_expired_stories.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5a614c50-7822-42ed-a625-7817c1fddeee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5a614c50-7822-42ed-a625-7817c1fddeee.xml" afterDir="false" />
+    <list default="true" id="14c26c76-919c-45f0-8321-1a02d1c2ef0b" name="Changes" comment="Story auto deleted added">
+      <change afterPath="$PROJECT_DIR$/Account/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account/migrations/0002_alter_updatecode_data_sent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account/migrations/0003_alter_updatecode_data_sent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account/migrations/0004_alter_updatecode_data_sent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account/migrations/0005_alter_updatecode_data_sent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Account/migrations/0006_alter_updatecode_data_sent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Archived/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Archived/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Archived/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Archived/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Archived/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Archived/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Archived/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/follow/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/follow/migrations/0002_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/IMG_1099.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/Screenshot_from_2023-07-27_21-52-45.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/White_Black_Elegant_Modern_Corporate_CV_Resume_1.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/photo_2023-07-28_13-42-25.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/photo_2023-07-28_13-42-25_WQBC1rQ.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/photo_2023-07-28_13-42-25_eWLn6ch.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/photo_2023-07-28_13-42-25_rBki5ON.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post/migrations/0002_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/migrations/0002_alter_userstory_expiration_time.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/migrations/0003_alter_userstory_expiration_time.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/migrations/0004_userstoryarchived.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/migrations/0005_remove_userstory_image_remove_userstory_video_and_more.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/migrations/0006_remove_userstory_body_userstory_image_and_more.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0002_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0003_updatecode_code_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0004_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0005_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0006_remove_updatecode_user_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0007_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0008_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0009_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0010_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0011_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0012_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0013_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0014_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0015_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0016_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0017_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0018_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0019_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0020_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0021_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0022_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0023_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0024_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0025_alter_updatecode_data_sent.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/follow/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/follow/migrations/0002_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/follow/migrations/0003_remove_follow_follower.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/follow/migrations/0004_rename_followed_follow_follow_follow_followed_user.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/migrations/0002_alter_like_like.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/migrations/0003_post_user.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/migrations/0004_remove_like_like_remove_post_caption_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/migrations/0005_post_made_number.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/migrations/0006_remove_post_made_number.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/migrations/0007_archivedpost.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/migrations/0008_archivedpost_user.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/migrations/0009_post_is_archived.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/migrations/0010_delete_archivedpost.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/migrations/0002_user_profile_photo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/migrations/0003_user_story.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/migrations/0004_varificationcode.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/migrations/0005_userstory.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/migrations/0006_alter_userstory_see_user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/serializer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
     </list>
@@ -255,7 +237,7 @@
       <workItem from="1690300043228" duration="8592000" />
       <workItem from="1690373233913" duration="9181000" />
       <workItem from="1690470555133" duration="4983000" />
-      <workItem from="1690562826367" duration="3477000" />
+      <workItem from="1690562826367" duration="8888000" />
     </task>
     <task id="LOCAL-00001" summary="push">
       <option name="closed" value="true" />
@@ -409,7 +391,15 @@
       <option name="project" value="LOCAL" />
       <updated>1690476486844</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Story auto deleted added">
+      <option name="closed" value="true" />
+      <created>1690566458493</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1690566458493</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -439,7 +429,8 @@
     <MESSAGE value="Archived post add" />
     <MESSAGE value="Archived API views add" />
     <MESSAGE value="Saved Post Successfuly added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Saved Post Successfuly added" />
+    <MESSAGE value="Story auto deleted added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Story auto deleted added" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Instagram$date.coverage" NAME="date Coverage Results" MODIFIED="1690309321257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/post" />

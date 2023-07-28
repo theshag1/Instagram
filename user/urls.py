@@ -1,11 +1,19 @@
 from django.urls import path
-from user.views import UserAPIView, \
-    UserFollowedAPIView, UserFollowersAPIView, UserPostAPIView, \
-    UserPostDetailAPIView, UserPostCommentAPIView, UserPostLikeAPIView, UserUpdateAPI, UsersLastMovementAPI, UserQrCOde, \
-    EmailVarification, CheckEmailVarificationCode, SavedPostAPIView, SavedPostDetail
+from user.views import (
+    UserAPIView,
+    UserFollowedAPIView, UserFollowersAPIView, UserPostAPIView,
+    UserPostDetailAPIView, UserPostCommentAPIView, UserPostLikeAPIView, UserUpdateAPI,
+    UsersLastMovementAPI, UserQrCOde,
+    EmailVarification, CheckEmailVarificationCode, SavedPostAPIView, SavedPostDetail,
+    UserStoryAPIview,
+    UserStoryCreatedAPI
+)
 
 urlpatterns = [
     # requirment
+
+    path('<str:username>/story/create', UserStoryCreatedAPI.as_view(), name='user_crreate_story'),
+    path('<str:username>/story', UserStoryAPIview.as_view(), name='saved_post'),
     path('<str:id>/saved/', SavedPostAPIView.as_view(), name='saved_post'),
     path('<str:id>/saved/<int:pk>', SavedPostDetail.as_view(), name='saved_post_pk'),
     path('qr/', UserQrCOde.as_view(), name='user_qr_code'),

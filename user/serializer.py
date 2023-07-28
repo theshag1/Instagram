@@ -135,13 +135,16 @@ class UserStorySerializer(serializers.ModelSerializer):
     class Meta:
         model = UserStory
         fields = (
-            'body',
-
-        )
-        read_only_fields = (
-            'datetime',
+            'image',
+            'video',
+            'create_time',
             'user',
             'see_user',
+            'expiration_time',
+        )
+        read_only_fields = (
+            'id',
+
         )
 
 
