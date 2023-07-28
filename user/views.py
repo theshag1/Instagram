@@ -152,7 +152,7 @@ class UserQrCOde(APIView):
 
 class SavedPostAPIView(APIView):
     def get(self, request, *args, **kwargs):
-        quryset = SavedPost.objects.filter(user=kwargs.get('username'))
+        quryset = SavedPost.objects.filter(user=kwargs.get('id'))
         serializer = SavePost(quryset, many=True)
         return Response(serializer.data)
 
@@ -170,10 +170,25 @@ class SavedPostAPIView(APIView):
             return Response(data={"detail": "Successfuly saved "})
         return Response(data={"error": "User can't  found"})
 
-    """
+
+class SavedPostDetail(APIView):
+    def get_object(self, pk):
+        return get_object_or_404(SavedPost.objects.filter(pk=pk))
+
+    def get(self, request, *args, **kwargs):
+        serializer = SavePost(self.get_object(kwargs.get('pk')))
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, *args, **kwargs):
+        queryset = self.get_object(kwargs.get('pk'))
+        queryset.delete()
+        return Response(status=status.HTTP_202_ACCEPTED)
+
+
+"""
                        user requirement 
     #########################################################################################
-    """
+"""
 
 
 class UserRegisterApi(generics.CreateAPIView):
