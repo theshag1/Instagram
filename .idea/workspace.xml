@@ -4,41 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14c26c76-919c-45f0-8321-1a02d1c2ef0b" name="Changes" comment="Story auto deleted added">
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0002_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0003_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0004_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0005_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Account/migrations/0006_alter_updatecode_data_sent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Archived/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Archived/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Archived/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Archived/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Archived/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Archived/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Archived/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/follow/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/follow/migrations/0002_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/IMG_1099.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/Screenshot_from_2023-07-27_21-52-45.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/White_Black_Elegant_Modern_Corporate_CV_Resume_1.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/photo_2023-07-28_13-42-25.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/photo_2023-07-28_13-42-25_WQBC1rQ.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/photo_2023-07-28_13-42-25_eWLn6ch.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/photo_2023-07-28_13-42-25_rBki5ON.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post/migrations/0002_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/migrations/0002_alter_userstory_expiration_time.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/migrations/0003_alter_userstory_expiration_time.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/migrations/0004_userstoryarchived.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/migrations/0005_remove_userstory_image_remove_userstory_video_and_more.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/migrations/0006_remove_userstory_body_userstory_image_and_more.py" afterDir="false" />
+    <list default="true" id="14c26c76-919c-45f0-8321-1a02d1c2ef0b" name="Changes" comment=" {&quot;added&quot;:f&quot;{39} files&quot;}">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5a614c50-7822-42ed-a625-7817c1fddeee.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5a614c50-7822-42ed-a625-7817c1fddeee/storage_v2/_src_/database/instagram.sge5AQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5a614c50-7822-42ed-a625-7817c1fddeee/storage_v2/_src_/database/instagram.sge5AQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5a614c50-7822-42ed-a625-7817c1fddeee/storage_v2/_src_/database/instagram.sge5AQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/serializer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Archived/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Archived/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Archived/serilizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Archived/serilizer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
     </list>
@@ -77,26 +50,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/shagi/JustFood",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/shagi/JustFood&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Massages" />
@@ -237,7 +210,8 @@
       <workItem from="1690300043228" duration="8592000" />
       <workItem from="1690373233913" duration="9181000" />
       <workItem from="1690470555133" duration="4983000" />
-      <workItem from="1690562826367" duration="8888000" />
+      <workItem from="1690562826367" duration="9242000" />
+      <workItem from="1690824732880" duration="1983000" />
     </task>
     <task id="LOCAL-00001" summary="push">
       <option name="closed" value="true" />
@@ -399,7 +373,15 @@
       <option name="project" value="LOCAL" />
       <updated>1690566458493</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary=" {&quot;added&quot;:f&quot;{39} files&quot;}">
+      <option name="closed" value="true" />
+      <created>1690573104752</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1690573104752</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -430,7 +412,8 @@
     <MESSAGE value="Archived API views add" />
     <MESSAGE value="Saved Post Successfuly added" />
     <MESSAGE value="Story auto deleted added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Story auto deleted added" />
+    <MESSAGE value=" {&quot;added&quot;:f&quot;{39} files&quot;}" />
+    <option name="LAST_COMMIT_MESSAGE" value=" {&quot;added&quot;:f&quot;{39} files&quot;}" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Instagram$date.coverage" NAME="date Coverage Results" MODIFIED="1690309321257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/post" />

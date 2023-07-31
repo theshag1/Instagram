@@ -14,6 +14,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from Archived.models import UserStoryArchived
+from Archived.serilizer import ArchivedStorySerizlier
 from config import settings
 from follow.models import Follow
 from user.models import User, VarificationCode, SavedPost, UserStory
@@ -171,8 +172,39 @@ class UserStoryCreatedAPI(generics.CreateAPIView):
                 user=user,
                 image=image,
                 video=video,
+                create_data=datetime.datetime.now()
             )
             return Response(data={"detail": "Successfuly created! "})
+        return Response(data={"error": 'User not found '})
+
+
+class UserStoryArchivedAPIview(APIView):
+    def get(self, request, *args, **kwargs):
+        if kwargs.get('username') != request.user.username:
+            return Response(data={"error": "User erorr !"})
+        queryset = UserStoryArchived.objects.filter(user__username=kwargs.get('username'))
+        serilizer = ArchivedStorySerizlier(queryset, many=True)
+        return Response(serilizer.data, status=status.HTTP_200_OK)
+
+
+class UserStoryArchivedDetailAPIview(APIView):
+    def get_object(self, pk):
+        return get_object_or_404(UserStoryArchived, pk=pk)
+
+    def get(self, request, *args, **kwargs):
+        serilizer = ArchivedStorySerizlier(self.get_object(kwargs.get('pk')))
+        if serilizer.data:
+            return Response(serilizer.data)
+        return Response(data={"error": status.HTTP_204_NO_CONTENT})
+
+    def delete(self, request, *args, **kwargs):
+        archived_post = self.get_object(kwargs.get('pk'))
+        if archived_post:
+            archived_post.delete()
+            return Response(status=status.HTTP_302_FOUND,
+                            headers={"Location": "http://127.0.0.1:8000/user/shagi/archived/story"})
+
+        return Response(data={"error": status.HTTP_204_NO_CONTENT})
 
 
 class CheckEmailVarificationCode(generics.CreateAPIView):

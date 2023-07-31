@@ -6,12 +6,14 @@ from user.views import (
     UsersLastMovementAPI, UserQrCOde,
     EmailVarification, CheckEmailVarificationCode, SavedPostAPIView, SavedPostDetail,
     UserStoryAPIview,
-    UserStoryCreatedAPI
+    UserStoryCreatedAPI, UserStoryArchivedAPIview, UserStoryArchivedDetailAPIview
 )
 
 urlpatterns = [
     # requirment
 
+    path('<str:username>/archived/story/<int:pk>', UserStoryArchivedDetailAPIview.as_view(), name='user_crreate_archived'),
+    path('<str:username>/archived/story', UserStoryArchivedAPIview.as_view(), name='user_crreate_archived'),
     path('<str:username>/story/create', UserStoryCreatedAPI.as_view(), name='user_crreate_story'),
     path('<str:username>/story', UserStoryAPIview.as_view(), name='saved_post'),
     path('<str:id>/saved/', SavedPostAPIView.as_view(), name='saved_post'),
