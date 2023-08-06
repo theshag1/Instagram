@@ -12,14 +12,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-
-from Archived.models import UserStoryArchived
-from Archived.serilizer import ArchivedStorySerizlier
+from UserSavedData.models import UserStoryArchived, UserPostSaved
+from UserSavedData.serializer import UserSavedStorySerializer, UserSavedPostSerializer
 from config import settings
 from follow.models import Follow
-from user.models import User, VarificationCode, SavedPost, UserStory
+from user.models import User, VarificationCode, UserStory
 from user.serializer import UserSerilizer, UserUpdateView, UserRegisterSerializer, \
-    Follows, Password_Update, EmailVarificationCode, SendEmailVarification, SavePost, UserStorySerializer
+    Follows, Password_Update, EmailVarificationCode, SendEmailVarification, UserStorySerializer
 from post.models import Post, Comment, Like
 from post.serializer import PostSerializer, CommentSerializer, LikeSerializer
 
@@ -178,21 +177,21 @@ class UserStoryCreatedAPI(generics.CreateAPIView):
         return Response(data={"error": 'User not found '})
 
 
-class UserStoryArchivedAPIview(APIView):
+class UserStorySavedAPIview(APIView):
     def get(self, request, *args, **kwargs):
         if kwargs.get('username') != request.user.username:
             return Response(data={"error": "User erorr !"})
         queryset = UserStoryArchived.objects.filter(user__username=kwargs.get('username'))
-        serilizer = ArchivedStorySerizlier(queryset, many=True)
+        serilizer = UserSavedStorySerializer(queryset, many=True)
         return Response(serilizer.data, status=status.HTTP_200_OK)
 
 
-class UserStoryArchivedDetailAPIview(APIView):
+class UserStorySavedDetailAPIview(APIView):
     def get_object(self, pk):
         return get_object_or_404(UserStoryArchived, pk=pk)
 
     def get(self, request, *args, **kwargs):
-        serilizer = ArchivedStorySerizlier(self.get_object(kwargs.get('pk')))
+        serilizer = UserSavedStorySerializer(self.get_object(kwargs.get('pk')))
         if serilizer.data:
             return Response(serilizer.data)
         return Response(data={"error": status.HTTP_204_NO_CONTENT})
@@ -229,18 +228,18 @@ class CheckEmailVarificationCode(generics.CreateAPIView):
 
 class SavedPostAPIView(APIView):
     def get(self, request, *args, **kwargs):
-        quryset = SavedPost.objects.filter(user=kwargs.get('id'))
-        serializer = SavePost(quryset, many=True)
+        quryset = UserPostSaved.objects.filter(user=kwargs.get('id'))
+        serializer = UserSavedPostSerializer(quryset, many=True)
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
-        serializer = SavePost(data=request.data)
+        serializer = UserSavedPostSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         post = serializer.validated_data.get('post')
         user_data = serializer.validated_data.get('user')
         is_user = User.objects.filter(id=user_data, username=request.user.username)
         if is_user:
-            SavedPost.objects.create(
+            UserPostSaved.objects.create(
                 post=post,
                 user=request.user.id
             )
@@ -250,10 +249,10 @@ class SavedPostAPIView(APIView):
 
 class SavedPostDetail(APIView):
     def get_object(self, pk):
-        return get_object_or_404(SavedPost.objects.filter(pk=pk))
+        return get_object_or_404(UserPostSaved.objects.filter(pk=pk))
 
     def get(self, request, *args, **kwargs):
-        serializer = SavePost(self.get_object(kwargs.get('pk')))
+        serializer = UserSavedPostSerializer(self.get_object(kwargs.get('pk')))
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, *args, **kwargs):

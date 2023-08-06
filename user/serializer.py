@@ -4,7 +4,7 @@ from rest_framework.exceptions import ValidationError
 
 from follow.models import Follow
 from post.models import Post
-from user.models import User, UserStory, SavedPost
+from user.models import User, UserStory
 from django.utils.translation import gettext_lazy as _
 from .models import VarificationCode
 
@@ -148,11 +148,3 @@ class UserStorySerializer(serializers.ModelSerializer):
         )
 
 
-class SavePost(serializers.ModelSerializer):
-    class Meta:
-        model = SavedPost
-        fields = (
-            'post',
-            'user',
-        )
-        read_only_fields = ('id',)

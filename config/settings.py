@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'Account',
     'follow',
     'post',
-    'Archived',
+    'UserSavedData',
+
 
 ]
 

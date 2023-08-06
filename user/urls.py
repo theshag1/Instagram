@@ -4,20 +4,21 @@ from user.views import (
     UserFollowedAPIView, UserFollowersAPIView, UserPostAPIView,
     UserPostDetailAPIView, UserPostCommentAPIView, UserPostLikeAPIView, UserUpdateAPI,
     UsersLastMovementAPI, UserQrCOde,
-    EmailVarification, CheckEmailVarificationCode, SavedPostAPIView, SavedPostDetail,
+    EmailVarification, CheckEmailVarificationCode,
     UserStoryAPIview,
-    UserStoryCreatedAPI, UserStoryArchivedAPIview, UserStoryArchivedDetailAPIview
-)
+    UserStoryCreatedAPI, UserStorySavedAPIview, UserStorySavedDetailAPIview, SavedPostAPIView, SavedPostDetail)
 
 urlpatterns = [
     # requirment
 
-    path('<str:username>/archived/story/<int:pk>', UserStoryArchivedDetailAPIview.as_view(), name='user_crreate_archived'),
-    path('<str:username>/archived/story', UserStoryArchivedAPIview.as_view(), name='user_crreate_archived'),
-    path('<str:username>/story/create', UserStoryCreatedAPI.as_view(), name='user_crreate_story'),
-    path('<str:username>/story', UserStoryAPIview.as_view(), name='saved_post'),
     path('<str:id>/saved/', SavedPostAPIView.as_view(), name='saved_post'),
     path('<str:id>/saved/<int:pk>', SavedPostDetail.as_view(), name='saved_post_pk'),
+
+    path('<str:username>/archived/story/<int:pk>', UserStorySavedDetailAPIview.as_view(),
+         name='user_crreate_archived'),
+    path('<str:username>/archived/story', UserStorySavedAPIview.as_view(), name='user_crreate_archived'),
+    path('<str:username>/story/create', UserStoryCreatedAPI.as_view(), name='user_crreate_story'),
+    path('<str:username>/story', UserStoryAPIview.as_view(), name='saved_post'),
     path('qr/', UserQrCOde.as_view(), name='user_qr_code'),
     path('email/varification/', EmailVarification.as_view(), name='user_email_varification_code'),
     path('email/varification/check/', CheckEmailVarificationCode.as_view(), name='user_email_varification_code'),
