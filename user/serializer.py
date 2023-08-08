@@ -24,7 +24,7 @@ class UserSerilizer(serializers.ModelSerializer):
             'Gander',
             'follower',
             'followed',
-            'post'
+            'post',
         )
 
         read_only_fields = ('id',)

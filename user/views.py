@@ -238,10 +238,11 @@ class SavedPostAPIView(APIView):
         post = serializer.validated_data.get('post')
         user_data = serializer.validated_data.get('user')
         is_user = User.objects.filter(id=user_data, username=request.user.username)
+
         if is_user:
             UserPostSaved.objects.create(
                 post=post,
-                user=request.user.id
+                user=is_user
             )
             return Response(data={"detail": "Successfuly saved "})
         return Response(data={"error": "User can't  found"})

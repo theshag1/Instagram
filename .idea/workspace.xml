@@ -6,19 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="14c26c76-919c-45f0-8321-1a02d1c2ef0b" name="Changes" comment=" {&quot;added&quot;:f&quot;{9} files&quot;}">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Archived/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/UserSavedData/serializer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Archived/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Archived/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Archived/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Archived/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Archived/serilizer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Archived/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Archived/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Archived/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/serializer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
@@ -221,7 +208,8 @@
       <workItem from="1690562826367" duration="9242000" />
       <workItem from="1690824732880" duration="2130000" />
       <workItem from="1691092870024" duration="307000" />
-      <workItem from="1691349236031" duration="2439000" />
+      <workItem from="1691349236031" duration="2846000" />
+      <workItem from="1691479977107" duration="2074000" />
     </task>
     <task id="LOCAL-00001" summary="push">
       <option name="closed" value="true" />
@@ -399,7 +387,15 @@
       <option name="project" value="LOCAL" />
       <updated>1690826855461</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary=" {&quot;added&quot;:f&quot;{9} files&quot;}">
+      <option name="closed" value="true" />
+      <created>1691351978084</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1691351978084</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
