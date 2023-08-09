@@ -206,26 +206,6 @@ class UserStorySavedDetailAPIview(APIView):
         return Response(data={"error": status.HTTP_204_NO_CONTENT})
 
 
-class CheckEmailVarificationCode(generics.CreateAPIView):
-    queryset = VarificationCode.objects.all()
-    serializer_class = EmailVarificationCode
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        email = serializer.validated_data.get('email')
-        code = serializer.validated_data.get('code')
-        varification = self.get_queryset().filter(email=email, code=code, is_varification=False).order_by(
-            '-date').first()
-        user = User.objects.filter(username=request.user.username)
-        if varification and varification.code != code:
-            raise ValidationError("Somthing error")
-        else:
-            varification.is_varification = True
-            user.email = email
-            return Response(data={"detail": "Succesfully Varification ! "})
-
-
 class SavedPostAPIView(APIView):
     def get(self, request, *args, **kwargs):
         quryset = UserPostSaved.objects.filter(user=kwargs.get('id'))
@@ -288,11 +268,11 @@ class EmailVarification(APIView):
             User.objects.update(email=email)
             send_mail(
                 subject=subject.EMAIL_LOGIN_SUBJECT, message=messages.email_varification(is_user.username, code),
-                from_email=settings.EMAIL_HOST_USER, recipient_list=[is_user.email]
+                from_email=settings.EMAIL_HOST_USER, recipient_list=[email]
 
             )
             return Response(status=status.HTTP_302_FOUND,
-                            headers={"Location": "http://127.0.0.1:8000/email/varification/check/"})
+                            headers={"Location": "http://127.0.0.1:8000/user/email/varification/check/"})
 
 
 class CheckEmailVarificationCode(generics.CreateAPIView):
@@ -307,12 +287,12 @@ class CheckEmailVarificationCode(generics.CreateAPIView):
         varification = self.get_queryset().filter(email=email, code=code, is_varification=False).order_by(
             '-date').first()
         user = User.objects.filter(username=request.user.username)
-        if varification and varification.code != code:
-            raise ValidationError("Somthing error")
-        else:
-            varification.is_varification = True
+        if varification and varification.code == code:
             user.email = email
+            varification.is_varification = True
             return Response(data={"detail": "Succesfully Varification ! "})
+        else:
+            return Response(data={"error": "Qotogmi yebasane onanyni"})
 
 
 class UserUpdateAPIView(APIView):
