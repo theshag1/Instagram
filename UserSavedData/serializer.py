@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UserStoryArchived, UserPostSaved
+from .models import UserStoryArchived, SavedPost
 
 
 class UserSavedStorySerializer(serializers.ModelSerializer):
@@ -15,9 +15,9 @@ class UserSavedStorySerializer(serializers.ModelSerializer):
 
 
 class UserSavedPostSerializer(serializers.ModelSerializer):
-    model = UserPostSaved
+    model = SavedPost
     fields = (
-        'post',
-        'user',
+          'user',
+          'post',
     )
     read_only_fields = ('id',)

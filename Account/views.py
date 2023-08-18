@@ -177,4 +177,6 @@ class User_Password_change(APIView):
                 return Response(serializer.data)
             else:
                 return Response('error')
-        return Response(data={'error': f"You can't change password {kwargs.get('username')}"})
+        return Response(data={'error': f"You ca"
+                                       f""
+                                       f"n't change password {kwargs.get('username')}"})

@@ -11,7 +11,7 @@ from user.views import (
 urlpatterns = [
     # requirment
 
-    path('<str:id>/saved/', SavedPostAPIView.as_view(), name='saved_post'),
+    path('<str:username>/saved/', SavedPostAPIView.as_view(), name='saved_post'),
     path('<str:id>/saved/<int:pk>', SavedPostDetail.as_view(), name='saved_post_pk'),
 
     path('<str:username>/archived/story/<int:pk>', UserStorySavedDetailAPIview.as_view(), name='user_crreate_archived'),

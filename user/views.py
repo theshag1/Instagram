@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from UserSavedData.models import UserStoryArchived, UserPostSaved
+from UserSavedData.models import UserStoryArchived, SavedPost
 from UserSavedData.serializer import UserSavedStorySerializer, UserSavedPostSerializer
 from config import settings
 from follow.models import Follow
@@ -32,10 +32,13 @@ from Massages import (subject, messages)
 
 class UserAPIView(APIView):
     def get(self, request, *args, **kwargs):
-        queryset = User.objects.filter(username=kwargs.get('username'))
-        serializer = UserSerilizer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
+        user_queryset = User.objects.filter(username=kwargs.get('username'))
+        post_queryset = Post.objects.filter(user__username=kwargs.get('username'))
+        user_serializer = UserSerilizer(user_queryset, many=True)
+        post_serializer  = PostSerializer(post_queryset , many=True)
+        return  Response(
+            {"user_data":user_serializer.data , "post_data" : post_serializer.data}
+        )
 
 class UserFollowedAPIView(APIView):
     def get(self, request, *args, **kwargs):
@@ -189,13 +192,11 @@ class UserStorySavedAPIview(APIView):
 class UserStorySavedDetailAPIview(APIView):
     def get_object(self, pk):
         return get_object_or_404(UserStoryArchived, pk=pk)
-
     def get(self, request, *args, **kwargs):
         serilizer = UserSavedStorySerializer(self.get_object(kwargs.get('pk')))
         if serilizer.data:
             return Response(serilizer.data)
         return Response(data={"error": status.HTTP_204_NO_CONTENT})
-
     def delete(self, request, *args, **kwargs):
         archived_post = self.get_object(kwargs.get('pk'))
         if archived_post:
@@ -204,33 +205,24 @@ class UserStorySavedDetailAPIview(APIView):
                             headers={"Location": "http://127.0.0.1:8000/user/shagi/archived/story"})
 
         return Response(data={"error": status.HTTP_204_NO_CONTENT})
-
-
 class SavedPostAPIView(APIView):
     def get(self, request, *args, **kwargs):
-        quryset = UserPostSaved.objects.filter(user=kwargs.get('id'))
-        serializer = UserSavedPostSerializer(quryset, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, *args, **kwargs):
-        serializer = UserSavedPostSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        post = serializer.validated_data.get('post')
-        user_data = serializer.validated_data.get('user')
-        is_user = User.objects.filter(id=user_data, username=request.user.username)
-
-        if is_user:
-            UserPostSaved.objects.create(
-                post=post,
-                user=is_user
-            )
-            return Response(data={"detail": "Successfuly saved "})
-        return Response(data={"error": "User can't  found"})
+        username = kwargs.get('username')
+        user = User.objects.filter(username=username).first()
+        if user:
+            queryset = SavedPost.objects.filter(user=user)
+            if queryset.exists():
+                serializer = UserSavedPostSerializer(queryset, many=True)
+                return Response(serializer.data)
+            else:
+                return Response({"message": "No saved posts for this user."}, status=200)
+        else:
+            return Response({"error": "User not found"}, status=404)
 
 
 class SavedPostDetail(APIView):
     def get_object(self, pk):
-        return get_object_or_404(UserPostSaved.objects.filter(pk=pk))
+        return get_object_or_404(SavedPost.objects.filter(pk=pk))
 
     def get(self, request, *args, **kwargs):
         serializer = UserSavedPostSerializer(self.get_object(kwargs.get('pk')))
@@ -292,7 +284,7 @@ class CheckEmailVarificationCode(generics.CreateAPIView):
             varification.is_varification = True
             return Response(data={"detail": "Succesfully Varification ! "})
         else:
-            return Response(data={"error": "Qotogmi yebasane onanyni"})
+            return Response(data={"error": "Can not update ! "})
 
 
 class UserUpdateAPIView(APIView):
