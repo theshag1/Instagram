@@ -53,6 +53,7 @@ urlpatterns = [
     path('follow/', include('follow.urls')),
     path('post/', include('post.urls')),
     path('', include('Account.urls')),
+    path('spam/', include('kick.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += swagger_urls

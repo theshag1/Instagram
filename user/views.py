@@ -6,7 +6,6 @@ from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
 
 from rest_framework import status
-from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -18,7 +17,7 @@ from config import settings
 from follow.models import Follow
 from user.models import User, VarificationCode, UserStory
 from user.serializer import UserSerilizer, UserUpdateView, UserRegisterSerializer, \
-    Follows, Password_Update, EmailVarificationCode, SendEmailVarification, UserStorySerializer
+    Follows, EmailVarificationCode, SendEmailVarification, UserStorySerializer
 from post.models import Post, Comment, Like
 from post.serializer import PostSerializer, CommentSerializer, LikeSerializer
 

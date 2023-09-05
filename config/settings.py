@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'follow',
     'post',
     'UserSavedData',
+    'kick',
 
 
 ]
